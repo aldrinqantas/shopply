@@ -1,8 +1,10 @@
-name: build
+name: app-prod-deployment
 on:
   push:
     branches:
       - main
+    paths:
+      - web
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

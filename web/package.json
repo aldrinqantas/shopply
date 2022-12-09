@@ -10,8 +10,8 @@
     "dev": "nodemon server/server.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "postinstall": "rm -rf production-server/",
-    "build": "next build && tsc --project tsconfig.server.json && cp server/robots.txt production-server",
-    "start": "node production-server/server.js"
+    "build": "npx cross-env NODE_ENV=production next build && tsc --project tsconfig.server.json && cp server/robots.txt production-server",
+    "start": "npx cross-env NODE_ENV=production node production-server/server.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",
