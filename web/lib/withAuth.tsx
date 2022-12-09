@@ -46,6 +46,8 @@ export default function withAuth(
     public componentDidMount() {
       // console.log('WithAuth.componentDidMount');
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      /* @ts-ignore */
       const { currentUser: user } = this.context;
 
       if (loginRequired && !logoutRequired && !user) {
@@ -72,6 +74,8 @@ export default function withAuth(
     }
 
     public render() {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      /* @ts-ignore */
       const { currentUser: user } = this.context;
 
       if (loginRequired && !logoutRequired && !user) {

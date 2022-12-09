@@ -5,6 +5,7 @@ import { Category } from '@shared/types';
 
 export interface AppContextValue {
   categories: Category[];
+  setCategories: (categories: Category[]) => void;
 }
 
 export const [AppContextProvider, useAppContext, AppContext] = createContext<AppContextValue>({
@@ -25,6 +26,7 @@ export const AppProvider = (props: AppProviderProps) => {
     <AppContextProvider
       value={{
         categories,
+        setCategories,
       }}
     >
       {children}

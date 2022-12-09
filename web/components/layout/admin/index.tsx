@@ -1,15 +1,4 @@
-import {
-  Flex,
-  useBreakpointValue,
-  Box,
-  Container,
-  ContainerProps,
-  Stack,
-  Text,
-  HStack,
-  Button,
-  Progress,
-} from '@chakra-ui/react';
+import { Flex, useBreakpointValue, Box, Container, ContainerProps, Stack } from '@chakra-ui/react';
 import Head from 'next/head';
 import React from 'react';
 import { FiLayers, FiHome, FiUsers, FiGrid, FiUserCheck } from 'react-icons/fi';

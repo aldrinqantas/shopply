@@ -93,6 +93,7 @@ export interface CardContainerProps
 export const CardContainer = forwardRef<CardContainerProps, 'div'>((props, ref) => {
   const styles = useMultiStyleConfig('Card', props);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { children, isHoverable, ...rest } = omitThemingProps(props);
 
   return (
