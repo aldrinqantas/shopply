@@ -53,4 +53,4 @@ jobs:
             docker update --restart=no shopply-app || true
             docker stop $(docker ps -a -q) || true
             docker rm $(docker ps -a -q) || true
-            docker run -e TZ=Australia/Brisbane -d --restart unless-stopped -p 8000:8000 --name shopply-app $IMAGE_ID:$VERSION
+            docker run -e TZ=Australia/Brisbane -d --restart unless-stopped -p 3000:3000 --name shopply-app $IMAGE_ID:$VERSION
