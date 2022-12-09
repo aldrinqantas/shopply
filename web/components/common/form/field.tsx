@@ -163,6 +163,7 @@ export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
  *
  * Will default to a text field if there is no matching type.
  */
+// eslint-disable-next-line react/display-name
 export const Field = React.forwardRef(
   <TFieldValues extends FieldValues = FieldValues>(
     props: FieldProps<TFieldValues> | FieldTypeProps,

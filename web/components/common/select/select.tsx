@@ -57,6 +57,7 @@ export interface SelectProps
 const SelectButton = forwardRef((props, ref) => {
   const styles = useMultiStyleConfig('Input', props);
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore:next-line
   const focusStyles = styles.field._focusVisible;
 

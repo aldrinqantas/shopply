@@ -53,6 +53,7 @@ interface CardOptions {
    * @type "plain" | "outline" | "solid"
    * @default "plain"
    */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   variant?: 'Card' extends keyof ThemeTypings['components'] /* @ts-ignore */
     ? ThemeTypings['components']['Card']['variants']
     : Variants;
@@ -291,6 +292,7 @@ export interface CardFooterProps
    * The default button variant
    * @default "ghost"
    */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   variant?: 'Button' extends keyof ThemeTypings['components'] /* @ts-ignore */
     ? ThemeTypings['components']['Button']['variants']
     : Variants;

@@ -43,6 +43,7 @@ export interface LoaderProps
    * @type "fill" | "overlay" | "fullscreen"
    * @default "fill"
    */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   variant?: 'Loader' extends keyof ThemeTypings['components'] /* @ts-ignore */
     ? ThemeTypings['components']['Loader']['variants']
     : Variants;

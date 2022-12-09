@@ -37,8 +37,8 @@ export const NumberInput = forwardRef<NumberInputProps, 'div'>((props, ref) => {
 
       {!hideStepper && (
         <NumberInputStepper>
-          <NumberIncrementStepper children={incrementIcon} />
-          <NumberDecrementStepper children={decrementIcon} />
+          <NumberIncrementStepper>{incrementIcon}</NumberIncrementStepper>
+          <NumberDecrementStepper>{decrementIcon}</NumberDecrementStepper>
         </NumberInputStepper>
       )}
     </ChakraNumberInput>
