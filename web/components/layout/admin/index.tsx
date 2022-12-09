@@ -1,0 +1,115 @@
+import {
+  Flex,
+  useBreakpointValue,
+  Box,
+  Container,
+  ContainerProps,
+  Stack,
+  Text,
+  HStack,
+  Button,
+  Progress,
+} from '@chakra-ui/react';
+import Head from 'next/head';
+import React from 'react';
+import { FiLayers, FiHome, FiUsers, FiGrid, FiUserCheck } from 'react-icons/fi';
+
+import { SidebarWrapper, NavButton } from '@components/common/sidebar';
+import { Navbar } from '@components/common/navbar';
+import { Logo } from '@components/common/logo';
+import { NavTabItemData, NestedNavTab } from '@components/common/nested-nav-tab';
+
+const nestedMenuData: { [key: string]: NavTabItemData[] } = {
+  products: [
+    {
+      href: '/admin/products',
+      label: 'Products',
+    },
+    {
+      href: '/admin/products/categories',
+      label: 'Categories',
+    },
+  ],
+};
+
+export interface AdminLayoutProps {
+  children: React.ReactNode;
+  bodyProps?: ContainerProps;
+  pageTitle: string;
+  nestedMenu?: 'products' | 'users';
+}
+
+export const AdminLayout = (props: AdminLayoutProps) => {
+  const { children, pageTitle, nestedMenu, bodyProps } = props;
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
+
+  return (
+    <>
+      <Head>
+        <title>{`${pageTitle}`}</title>
+      </Head>
+      <Flex
+        as="section"
+        direction={{ base: 'column', lg: 'row' }}
+        height="100vh"
+        bg="bg-canvas"
+        overflowY="auto"
+      >
+        {isDesktop && <AdminSidebar />}
+
+        <Box flex="1" overflow="auto">
+          <Navbar isDesktop={isDesktop} sidebar={<AdminSidebar />} />
+          {nestedMenu && <NestedNavTab menuData={nestedMenuData[nestedMenu]} />}
+          <Container p={{ base: 4, md: 6 }} {...bodyProps}>
+            {children}
+          </Container>
+        </Box>
+      </Flex>
+    </>
+  );
+};
+
+const menu = [
+  {
+    label: 'Home',
+    path: '/admin/home',
+    icon: FiHome,
+  },
+  {
+    label: 'Orders',
+    path: '/admin/orders',
+    icon: FiLayers,
+  },
+  {
+    label: 'Retailers',
+    path: '/admin/retailers',
+    icon: FiUsers,
+  },
+  {
+    label: 'Products',
+    path: '/admin/products',
+    icon: FiGrid,
+  },
+  {
+    label: 'Users',
+    path: '/admin/users',
+    icon: FiUserCheck,
+  },
+];
+
+const AdminSidebar = () => {
+  return (
+    <SidebarWrapper>
+      <Stack justify="space-between" spacing="1" w="full">
+        <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
+          <Logo />
+          <Stack spacing="1">
+            {menu.map((menuItem) => (
+              <NavButton key={menuItem.path} {...menuItem} />
+            ))}
+          </Stack>
+        </Stack>
+      </Stack>
+    </SidebarWrapper>
+  );
+};
