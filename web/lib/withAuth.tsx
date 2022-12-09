@@ -2,7 +2,7 @@ import Router from 'next/router';
 import React from 'react';
 import { UserContext } from '@context/UserContext';
 
-import type { User, UserRole } from '@backend/models/User';
+import type { User, UserRole } from '@shared/types';
 
 const adminRoles: UserRole[] = ['super', 'admin'];
 

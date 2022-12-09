@@ -115,9 +115,9 @@ const getError = (name: string, formState: FormState<{ [x: string]: any }>) => {
   return get(formState.errors, name);
 };
 
-const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
-  return get(formState.touchedFields, name);
-};
+// const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
+//   return get(formState.touchedFields, name);
+// };
 
 export const BaseField: React.FC<FieldProps> = (props) => {
   const { name, label, help, variant, hideLabel, children, ...controlProps } = props;
