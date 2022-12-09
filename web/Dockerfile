@@ -1,5 +1,9 @@
 FROM node:14.18.1
 
+ENV YARN_VERSION 1.22.17
+
+RUN yarn policies set-version $YARN_VERSION
+
 # Copy app source
 COPY . /src
 
