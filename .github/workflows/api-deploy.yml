@@ -6,15 +6,17 @@ on:
     paths:
       - api/**
 jobs:
-  build-and-deploy:
+  build-and-deploy-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: create env file
         run: |
           cd api
+          ls
           touch .env
           echo "${{ secrets.API_ENV_FILE }}" > .env
+          ls
       - name: Build image
         run: |
           cd api
