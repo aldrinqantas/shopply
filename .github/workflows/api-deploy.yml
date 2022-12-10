@@ -13,10 +13,7 @@ jobs:
       - name: create env file
         run: |
           cd api
-          ls
-          touch .env
           echo "${{ secrets.API_ENV_FILE }}" > .env
-          ls
       - name: Build image
         run: |
           cd api
@@ -60,6 +57,6 @@ jobs:
             echo VERSION=$VERSION
             docker pull $IMAGE_ID:$VERSION
             docker update --restart=no shopply-api || true
-            docker stop $(docker ps -a -q) || true
-            docker rm $(docker ps -a -q) || true
+            docker stop shopply-api || true
+            docker rm shopply-api || true
             docker run -e TZ=Australia/Brisbane -d --restart unless-stopped -p 8000:8000 --name shopply-api $IMAGE_ID:$VERSION

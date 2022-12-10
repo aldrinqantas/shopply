@@ -24,7 +24,7 @@ import { getAppRootUrl } from '@lib/common';
 import { AuthLayout } from '@components/layout/auth';
 import { PasswordInput } from '@components/common/password-input';
 
-// .
+//
 const Login = () => {
   const {
     register,
