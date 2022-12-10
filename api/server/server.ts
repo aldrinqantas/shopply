@@ -1,5 +1,5 @@
 import * as mongoSessionStore from 'connect-mongo';
-// import * as cors from 'cors';
+import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
 import * as httpModule from 'http';
@@ -37,13 +37,13 @@ mongoose.connect(dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL);
 
 const server = express();
 
-// server.use(
-//   cors({
-//     origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-//   }),
-// );
+server.use(
+  cors({
+    origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  }),
+);
 
 server.use(helmet());
 server.use(compression());
