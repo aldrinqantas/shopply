@@ -1,10 +1,10 @@
-name: app-prod-deployment
+name: api-prod-deployment
 on:
   push:
     branches:
       - main
     paths:
-      - web/**
+      - api/**
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -12,17 +12,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: create env file
         run: |
-          cd web
-          echo "${{ secrets.APP_ENV_FILE }}" > .env
+          cd api
+          echo "${{ secrets.API_ENV_FILE }}" > .env
       - name: Build image
         run: |
-          cd web
-          docker build . --file Dockerfile --tag shopply-app --label "runnumber=${GITHUB_RUN_ID}"
+          cd api
+          docker build . --file Dockerfile --tag shopply-api --label "runnumber=${GITHUB_RUN_ID}"
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Push image
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/shopply-app
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/shopply-api
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           # Strip git ref prefix from version
@@ -33,7 +33,7 @@ jobs:
           [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag shopply-app $IMAGE_ID:$VERSION
+          docker tag shopply-api $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
       - name: Deploy Container to Digitalocean
         uses: appleboy/ssh-action@master
@@ -44,7 +44,7 @@ jobs:
 
           script: |
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/shopply-app
+            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/shopply-api
             # Change all uppercase to lowercase
             IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
             # Strip git ref prefix from version
@@ -56,7 +56,7 @@ jobs:
             echo IMAGE_ID=$IMAGE_ID
             echo VERSION=$VERSION
             docker pull $IMAGE_ID:$VERSION
-            docker update --restart=no shopply-app || true
+            docker update --restart=no shopply-api || true
             docker stop $(docker ps -a -q) || true
             docker rm $(docker ps -a -q) || true
-            docker run -e TZ=Australia/Brisbane -d --restart unless-stopped -p 3000:3000 --name shopply-app $IMAGE_ID:$VERSION
+            docker run -e TZ=Australia/Brisbane -d --restart unless-stopped -p 8000:8000 --name shopply-api $IMAGE_ID:$VERSION
