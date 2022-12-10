@@ -15,7 +15,7 @@ jobs:
           cd api
           touch .env
           echo "${{ secrets.API_ENV_FILE }}" > .env
-          ls -a
+          cat .env
       - name: Build image
         run: |
           cd api

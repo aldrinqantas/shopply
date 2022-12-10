@@ -14,6 +14,7 @@ jobs:
         run: |
           cd web
           echo "${{ secrets.APP_ENV_FILE }}" > .env
+          cat .env
       - name: Build image
         run: |
           cd web
