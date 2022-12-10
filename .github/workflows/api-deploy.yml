@@ -13,6 +13,7 @@ jobs:
       - name: create env file
         run: |
           cd api
+          touch .env
           echo "${{ secrets.API_ENV_FILE }}" > .env
       - name: Build image
         run: |

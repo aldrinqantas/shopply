@@ -21,7 +21,7 @@ const port = process.env.PORT || 8000;
 
 mongoose.connect(dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL);
 
-// check connection.
+// check connection
 (async () => {
   try {
     await mongoose.connect(dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL);
