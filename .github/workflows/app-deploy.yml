@@ -1,4 +1,4 @@
-name: app-prod-deployment
+name: App Production Deployment
 on:
   push:
     branches:
@@ -13,6 +13,7 @@ jobs:
       - name: create env file
         run: |
           cd web
+          touch .env
           echo "${{ secrets.APP_ENV_FILE }}" > .env
       - name: Build image
         run: |
