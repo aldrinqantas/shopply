@@ -1,5 +1,5 @@
 import * as mongoSessionStore from 'connect-mongo';
-import * as cors from 'cors';
+// import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
 import * as httpModule from 'http';
@@ -29,6 +29,7 @@ mongoose.connect(dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL);
 
     // async tasks, for ex, inserting email templates to db
     // logger.info('finished async tasks');
+    await insertData();
   } catch (err) {
     console.log('error: ' + err);
   }
@@ -36,13 +37,13 @@ mongoose.connect(dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL);
 
 const server = express();
 
-server.use(
-  cors({
-    origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  }),
-);
+// server.use(
+//   cors({
+//     origin: dev ? process.env.URL_APP : process.env.PRODUCTION_URL_APP,
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: true,
+//   }),
+// );
 
 server.use(helmet());
 server.use(compression());
@@ -91,5 +92,3 @@ httpServer.listen(port, () => {
   logger.debug('debug right before info');
   logger.info(`> Ready on ${dev ? process.env.URL_API : process.env.PRODUCTION_URL_API}`);
 });
-
-insertData();
