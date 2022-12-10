@@ -109,6 +109,10 @@ const Login = () => {
             </Stack>
           </form>
         </Box>
+        <Alert status="info">
+          <AlertIcon />
+          Admin account: admin@gmail.com | ShopplyAdmin
+        </Alert>
       </Stack>
     </AuthLayout>
   );
