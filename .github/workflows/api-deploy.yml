@@ -10,10 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_PRODUCTION_URL_APP: "https://shopply.qdzungpham.com"
+          envkey_PRODUCTION_URL_API: "https://api.shopply.qdzungpham.com"
+          envkey_MONGO_URL: ${{ secrets.MONGO_URL }}
+          envkey_SESSION_NAME: "shopply.qdzungpham.com.sid"
+          envkey_SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          envkey_COOKIE_DOMAIN: "shopply.qdzungpham.com"
+          directory: api
       - name: Build image
         run: |
           cd api
-          echo "${{ secrets.API_ENV_FILE }}" > .env
           docker build . --file Dockerfile --tag shopply-api --label "runnumber=${GITHUB_RUN_ID}"
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
