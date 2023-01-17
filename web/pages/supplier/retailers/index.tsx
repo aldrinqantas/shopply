@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { FiEdit, FiEye } from 'react-icons/fi';
 
 import withAuth from '@lib/withAuth';
-import { AdminLayout } from '@components/layout/admin';
+import { AdminLayout } from '@components/layout/supplier';
 import { Card, CardHeader, CardTitle } from '@components/common/card';
 import { SearchInput } from '@components/common/search-input';
 import { DataGrid, ColumnDef } from '@components/common/data-grid';
@@ -98,4 +98,4 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page, { loginRequired: true, adminRequired: true });
+export default withAuth(Page, { loginRequired: true, requiredRoles: ['supplier'] });

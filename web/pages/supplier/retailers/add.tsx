@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 
 import withAuth from '@lib/withAuth';
-import { AdminLayout } from '@components/layout/admin';
+import { AdminLayout } from '@components/layout/supplier';
 import { RetailerForm } from '@components/admin/retailers';
 import { SubmitButton } from '@components/common/form';
 import { Card, CardBody } from '@components/common/card';
@@ -66,4 +66,4 @@ const RetailersAdd = () => {
   );
 };
 
-export default withAuth(RetailersAdd, { loginRequired: true, adminRequired: true });
+export default withAuth(RetailersAdd, { loginRequired: true, requiredRoles: ['supplier'] });

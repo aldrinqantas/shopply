@@ -21,11 +21,11 @@ import { ColorModeToggle } from '@components/common/color-mode-toggle';
 const nestedMenuData: { [key: string]: NavTabItemData[] } = {
   products: [
     {
-      href: '/admin/products',
+      href: '/supplier/products',
       label: 'Products',
     },
     {
-      href: '/admin/products/categories',
+      href: '/supplier/products/categories',
       label: 'Categories',
     },
   ],
@@ -80,27 +80,27 @@ export const AdminLayout = (props: AdminLayoutProps) => {
 const menu = [
   {
     label: 'Home',
-    path: '/admin/home',
+    path: '/supplier/home',
     icon: FiHome,
   },
   {
     label: 'Orders',
-    path: '/admin/orders',
+    path: '/supplier/orders',
     icon: FiLayers,
   },
   {
     label: 'Retailers',
-    path: '/admin/retailers',
+    path: '/supplier/retailers',
     icon: FiUsers,
   },
   {
     label: 'Products',
-    path: '/admin/products',
+    path: '/supplier/products',
     icon: FiGrid,
   },
   {
     label: 'Users',
-    path: '/admin/users',
+    path: '/supplier/users',
     icon: FiUserCheck,
   },
 ];

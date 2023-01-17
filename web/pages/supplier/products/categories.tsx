@@ -1,7 +1,7 @@
 import React from 'react';
 
 import withAuth from '@lib/withAuth';
-import { AdminLayout } from '@components/layout/admin';
+import { AdminLayout } from '@components/layout/supplier';
 
 const Page = () => {
   return (
@@ -11,4 +11,4 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page, { loginRequired: true, adminRequired: true });
+export default withAuth(Page, { loginRequired: true, requiredRoles: ['supplier'] });
