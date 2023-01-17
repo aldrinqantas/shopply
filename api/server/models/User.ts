@@ -2,6 +2,7 @@ import mongoose, { PassportLocalModel, PassportLocalDocument, PaginateModel } fr
 import * as passportLocalMongoose from 'passport-local-mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 
+import { Supplier } from './Supplier';
 import { Retailer } from './Retailer';
 
 const { Schema } = mongoose;
@@ -29,15 +30,19 @@ const mongoSchema = new Schema({
   lastName: String,
   status: {
     type: String,
-    default: 'active',
+    default: 'Active',
   },
   role: {
     type: String,
     required: true,
   },
-  myRetailers: {
-    type: [ObjectId],
-    default: [],
+  myRetailer: {
+    type: ObjectId,
+    ref: 'Retailer',
+  },
+  mySupplier: {
+    type: ObjectId,
+    ref: 'Supplier',
   },
 });
 
@@ -60,7 +65,7 @@ mongoSchema.plugin(passportLocalMongoose, {
   },
 });
 export type UserStatus = 'active' | 'deactivated';
-export type UserRole = 'super' | 'admin' | 'customer';
+export type UserRole = 'super' | 'supplier' | 'retailer';
 
 export interface User {
   _id?: any;
@@ -72,7 +77,8 @@ export interface User {
   lastName: string;
   status: UserStatus;
   role: UserRole;
-  myRetailers: Retailer[];
+  myRetailer: Retailer;
+  mySupplier: Supplier;
 }
 
 export interface UserDocument extends PassportLocalDocument, User {}

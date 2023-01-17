@@ -1,31 +1,20 @@
 import * as passport from 'passport';
 
 import logger from './logger';
-import User, { UserDocument, UserRole } from './models/User';
-import Retailer from './models/Retailer';
+import User, { UserDocument } from './models/User';
 
 const dev = process.env.NODE_ENV !== 'production';
-
-const adminRoles: UserRole[] = ['super', 'admin'];
 
 function auth({ server }) {
   passport.use(User.createStrategy());
 
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser((email, done) => {
-    User.findOne({ email }, User.publicFields())
-      .populate('myRetailers')
-      .exec(async (err, user) => {
-        const userObj: any = user.toObject();
-        userObj.isAdmin = adminRoles.indexOf(user.role) > -1;
-        if (userObj.isAdmin) {
-          const allRetailers = await Retailer.find({}, Retailer.publicFields())
-            .sort({ tradingName: 1 })
-            .lean();
-          userObj.myRetailers = allRetailers;
-        }
-        done(err, userObj);
-      });
+    User.findOne({ email }, User.publicFields()).exec(async (err, user) => {
+      const userObj: any = user.toObject();
+
+      done(err, userObj);
+    });
   });
 
   server.use(passport.initialize());
