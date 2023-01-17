@@ -2,6 +2,7 @@ import mongoose, { PassportLocalModel, PassportLocalDocument, PaginateModel } fr
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 const { Schema } = mongoose;
+const { ObjectId } = mongoose.Schema.Types;
 
 const mongoSchema = new Schema({
   createdAt: {
@@ -38,6 +39,11 @@ const mongoSchema = new Schema({
   status: {
     type: String,
     default: 'Active',
+  },
+  suppliers: {
+    type: [ObjectId],
+    ref: 'Supplier',
+    default: [],
   },
 });
 
