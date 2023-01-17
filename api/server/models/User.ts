@@ -30,7 +30,7 @@ const mongoSchema = new Schema({
   lastName: String,
   status: {
     type: String,
-    default: 'Active',
+    default: 'active',
   },
   role: {
     type: String,

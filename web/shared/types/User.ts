@@ -2,7 +2,7 @@ import type { Retailer } from './Retailer';
 
 export type UserStatus = 'active' | 'deactivated';
 
-export type UserRole = 'super' | 'admin' | 'customer';
+export type UserRole = 'super' | 'supplier' | 'retailer';
 
 export interface User {
   _id?: any;

@@ -4,13 +4,8 @@ import { UserContext } from '@context/UserContext';
 
 import type { User, UserRole } from '@shared/types';
 
-const adminRoles: UserRole[] = ['super', 'admin'];
-
-/**
- * Check if user is Admin
- */
-export function isAdmin(user: User) {
-  return user && adminRoles.indexOf(user.role) > -1;
+export function isAuthorised(user: User, requiredRoles: any) {
+  return (user && user.role === 'super') || requiredRoles.includes(user.role);
 }
 
 export default function withAuth(
@@ -18,11 +13,11 @@ export default function withAuth(
   {
     loginRequired = true,
     logoutRequired = false,
-    adminRequired = false,
+    requiredRoles = false,
   }: {
     loginRequired?: boolean;
     logoutRequired?: boolean;
-    adminRequired?: boolean;
+    requiredRoles?: boolean | UserRole[];
   } = {},
 ) {
   class WithAuth extends React.Component {
@@ -54,14 +49,14 @@ export default function withAuth(
         return Router.push('/login');
       }
 
-      if (adminRequired && !isAdmin(user)) {
+      if (requiredRoles && !isAuthorised(user, requiredRoles)) {
         return Router.push('/403');
       }
 
       let redirectUrl = '/login';
       if (user) {
-        if (isAdmin(user)) {
-          redirectUrl = '/admin/home';
+        if (user.role === 'supplier') {
+          redirectUrl = '/supplier/home';
         } else {
           redirectUrl = '/retailer/home';
         }
@@ -82,7 +77,7 @@ export default function withAuth(
         return null;
       }
 
-      if (adminRequired && !isAdmin(user)) {
+      if (requiredRoles && !isAuthorised(user, requiredRoles)) {
         return null;
       }
 
