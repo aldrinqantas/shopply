@@ -1,53 +1,11 @@
+import fetch from 'node-fetch';
+
 import User from '../models/User';
 import Supplier from '../models/Supplier';
+import Category from '../models/Category';
+import Product from '../models/Product';
 import logger from '../logger';
-
-const SUPPLIER_USER_1 = {
-  email: 'admin_supplier_1@gmail.com',
-  firstName: 'John',
-  lastName: 'Admin',
-  password: 'ShopplyAdmin',
-};
-
-const SUPPLIER_USER_2 = {
-  email: 'admin_supplier_2@gmail.com',
-  firstName: 'Bob',
-  lastName: 'Admin',
-  password: 'ShopplyAdmin',
-};
-
-const SUPPLIERS = [
-  {
-    tradingName: 'Supplier One Store',
-    corporateEntity: 'Supplier One Pty Ltd',
-    address: {
-      line1: '1 Good Street',
-      line2: '',
-      suburb: 'A Suburb',
-      state: 'NSW',
-    },
-    emailAddress: 'admin_supplier_1@gmail.com',
-    phoneNumber: '0412345678',
-    abn: '12345678901',
-    status: 'Active',
-    user: SUPPLIER_USER_1,
-  },
-  {
-    tradingName: 'Supplier Two Store',
-    corporateEntity: 'Supplier Two Pty Ltd',
-    address: {
-      line1: '1 Nice Street',
-      line2: '',
-      suburb: 'B Suburb',
-      state: 'NSW',
-    },
-    emailAddress: 'admin_supplier_1@gmail.com',
-    phoneNumber: '0412345678',
-    abn: '12345678901',
-    status: 'Active',
-    user: SUPPLIER_USER_2,
-  },
-];
+import { SUPPLIERS } from './supplierData';
 
 async function insertSupplierUser(supplierId, user) {
   try {
@@ -62,6 +20,37 @@ async function insertSupplierUser(supplierId, user) {
     });
 
     await User.register(newUser, user.password);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function insertProducts(supplierId, categories) {
+  try {
+    categories.forEach(async (category) => {
+      const newCategory = await Category.add({
+        supplier: supplierId,
+        name: category.name,
+        slug: category.slug,
+      });
+      logger.info(`Category ${newCategory.name} added`);
+
+      const productRes = await fetch(
+        `https://api.escuelajs.co/api/v1/products/?categoryId=${category.apiId}`,
+      );
+      const products = (await productRes.json()) as any[];
+      products.forEach(async (product) => {
+        await Product.add({
+          supplier: supplierId,
+          name: product.title,
+          sku: product.id,
+          description: product.description,
+          sellPrice: product.price,
+          categories: [newCategory._id],
+          images: product.images,
+        });
+      });
+    });
   } catch (error) {
     throw error;
   }
@@ -86,6 +75,8 @@ async function insertSuppliers() {
       });
 
       await insertSupplierUser(newSupplier._id, supplier.user);
+
+      await insertProducts(newSupplier._id, supplier.categories);
     });
   } catch (error) {
     throw error;

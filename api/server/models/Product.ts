@@ -14,6 +14,10 @@ const mongoSchema = new Schema({
   updatedAt: {
     type: Date,
   },
+  supplier: {
+    type: ObjectId,
+    ref: 'Supplier',
+  },
   name: {
     type: String,
     required: true,
@@ -37,8 +41,9 @@ const mongoSchema = new Schema({
     default: [],
     ref: 'Category',
   },
-  imageUrl: {
-    type: String,
+  images: {
+    type: [String],
+    default: [],
   },
 });
 
@@ -54,25 +59,27 @@ export interface Product {
   tags: string[];
   sellPrice: number;
   categories: Category[] | string[];
-  imageUrl?: string;
+  images?: string;
 }
 
 interface ProductModel extends PaginateModel<Product> {
   publicFields(): string[];
   add({
+    supplier,
     name,
     sku,
     description,
     sellPrice,
     categories,
-    imageUrl,
+    images,
   }: {
+    supplier: string;
     name: string;
     sku: string;
     description: string;
     sellPrice: number;
     categories: string[];
-    imageUrl: string;
+    images: string;
   }): Promise<Category>;
 }
 
@@ -81,9 +88,10 @@ class ProductClass extends mongoose.Model {
     return ['_id', 'name', 'sku', 'description', 'tags', 'sellPrice', 'categories', 'imageUrl'];
   }
 
-  static async add({ name, sku, description, sellPrice, categories, imageUrl }) {
+  static async add({ supplier, name, sku, description, sellPrice, categories, imageUrl }) {
     try {
       const newProduct = await this.create({
+        supplier,
         name,
         sku,
         description,
