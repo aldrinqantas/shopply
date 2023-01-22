@@ -17,6 +17,7 @@ import { Navbar } from '@components/common/navbar';
 import { Logo } from '@components/common/logo';
 import { NavTabItemData, NestedNavTab } from '@components/common/nested-nav-tab';
 import { ColorModeToggle } from '@components/common/color-mode-toggle';
+import { UserAvatarMenu } from '@components/common/user-avatar-menu';
 
 const nestedMenuData: { [key: string]: NavTabItemData[] } = {
   products: [
@@ -64,6 +65,7 @@ export const SupplierLayout = (props: SupplierLayoutProps) => {
               <ButtonGroup variant="ghost" spacing="1">
                 <IconButton fontSize="lg" icon={<FiSearch />} aria-label="Search" />
                 <ColorModeToggle />
+                <UserAvatarMenu />
               </ButtonGroup>
             }
           />
