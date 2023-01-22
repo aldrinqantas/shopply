@@ -58,12 +58,12 @@ const Page = () => {
           <HStack>
             <IconButton aria-label="Update retailer" size="xs" icon={<FiEdit />} />
             <IconButton
-              aria-label="View as Retailer"
+              aria-label="View retailer"
               size="xs"
               icon={<FiEye />}
               onClick={() => {
                 setActiveRetailerId(cellProps.row.original._id);
-                Router.push('/retailer/home');
+                Router.push(`/supplier/retailers/${cellProps.row.original._id}`);
               }}
             />
           </HStack>
@@ -80,10 +80,6 @@ const Page = () => {
           <CardTitle flex={1}>Retailers</CardTitle>
           <HStack>
             <SearchInput />
-
-            <Button variant="primary" onClick={() => Router.push('/admin/retailers/add')}>
-              Add retailer
-            </Button>
           </HStack>
         </CardHeader>
         <DataGrid
