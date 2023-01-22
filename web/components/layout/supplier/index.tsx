@@ -31,14 +31,14 @@ const nestedMenuData: { [key: string]: NavTabItemData[] } = {
   ],
 };
 
-export interface AdminLayoutProps {
+export interface SupplierLayoutProps {
   children: React.ReactNode;
   bodyProps?: ContainerProps;
   pageTitle: string;
   nestedMenu?: 'products' | 'users';
 }
 
-export const AdminLayout = (props: AdminLayoutProps) => {
+export const SupplierLayout = (props: SupplierLayoutProps) => {
   const { children, pageTitle, nestedMenu, bodyProps } = props;
   const isDesktop = useBreakpointValue({ base: false, lg: true });
 
@@ -54,12 +54,12 @@ export const AdminLayout = (props: AdminLayoutProps) => {
         bg="bg-canvas"
         overflowY="auto"
       >
-        {isDesktop && <AdminSidebar />}
+        {isDesktop && <SupplierSidebar />}
 
         <Box flex="1" overflow="auto">
           <Navbar
             isDesktop={isDesktop}
-            sidebar={<AdminSidebar />}
+            sidebar={<SupplierSidebar />}
             rightElements={
               <ButtonGroup variant="ghost" spacing="1">
                 <IconButton fontSize="lg" icon={<FiSearch />} aria-label="Search" />
@@ -105,7 +105,7 @@ const menu = [
   },
 ];
 
-const AdminSidebar = () => {
+const SupplierSidebar = () => {
   return (
     <SidebarWrapper>
       <Stack justify="space-between" spacing="1" w="full">

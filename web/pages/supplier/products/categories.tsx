@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { FiEdit, FiEye } from 'react-icons/fi';
 
 import withAuth from '@lib/withAuth';
-import { AdminLayout } from '@components/layout/supplier';
+import { SupplierLayout } from '@components/layout/supplier';
 import { Card, CardHeader, CardTitle } from '@components/common/card';
 import { SearchInput } from '@components/common/search-input';
 import { DataGrid, ColumnDef, DataGridPagination } from '@components/common/data-grid';
@@ -68,7 +68,7 @@ const Page = () => {
     [],
   );
   return (
-    <AdminLayout pageTitle="Categories" nestedMenu="products">
+    <SupplierLayout pageTitle="Categories" nestedMenu="products">
       <Card>
         <CardHeader>
           <CardTitle flex={1}>Products</CardTitle>
@@ -86,7 +86,7 @@ const Page = () => {
           <DataGridPagination />
         </DataGrid>
       </Card>
-    </AdminLayout>
+    </SupplierLayout>
   );
 };
 
