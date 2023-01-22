@@ -88,7 +88,7 @@ class ProductClass extends mongoose.Model {
     return ['_id', 'name', 'sku', 'description', 'tags', 'sellPrice', 'categories', 'images'];
   }
 
-  static async add({ supplier, name, sku, description, sellPrice, categories, imageUrl }) {
+  static async add({ supplier, name, sku, description, sellPrice, categories, images }) {
     try {
       const newProduct = await this.create({
         supplier,
@@ -97,7 +97,7 @@ class ProductClass extends mongoose.Model {
         description,
         sellPrice,
         categories,
-        imageUrl,
+        images,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
