@@ -12,3 +12,8 @@ export const supplierGetRetailerDetailsApiMethod = (retailerId) =>
   sendRequestAndGetResponse(`${BASE_PATH}/retailers/${retailerId}`, {
     method: 'GET',
   });
+
+export const supplierGetProductsApiMethod = () =>
+  sendRequestAndGetResponse(`${BASE_PATH}/products`, {
+    method: 'GET',
+  });

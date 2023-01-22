@@ -85,7 +85,7 @@ interface ProductModel extends PaginateModel<Product> {
 
 class ProductClass extends mongoose.Model {
   public static publicFields(): string[] {
-    return ['_id', 'name', 'sku', 'description', 'tags', 'sellPrice', 'categories', 'imageUrl'];
+    return ['_id', 'name', 'sku', 'description', 'tags', 'sellPrice', 'categories', 'images'];
   }
 
   static async add({ supplier, name, sku, description, sellPrice, categories, imageUrl }) {
