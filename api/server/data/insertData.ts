@@ -34,6 +34,7 @@ async function insertProducts(supplierId, categories) {
         supplier: supplierId,
         name: category.name,
         slug: category.slug,
+        image: category.image,
       });
       logger.info(`Category ${newCategory.name} added`);
 

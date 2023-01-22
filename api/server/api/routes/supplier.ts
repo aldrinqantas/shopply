@@ -2,6 +2,7 @@ import * as express from 'express';
 
 import Retailer from '../../models/Retailer';
 import Product from '../../models/Product';
+import Category from '../../models/Category';
 
 const router = express.Router();
 
@@ -47,6 +48,17 @@ router.get('/products', async (req: any, res, next) => {
       .populate('categories')
       .sort({ name: 1 })
       .lean();
+
+    res.json(products);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/categories', async (req: any, res, next) => {
+  try {
+    const { user } = req;
+    const products = await Category.find({ supplier: user.mySupplier }).sort({ name: 1 }).lean();
 
     res.json(products);
   } catch (err) {

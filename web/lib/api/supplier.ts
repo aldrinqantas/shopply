@@ -17,3 +17,8 @@ export const supplierGetProductsApiMethod = () =>
   sendRequestAndGetResponse(`${BASE_PATH}/products`, {
     method: 'GET',
   });
+
+export const supplierGetCategoriesApiMethod = () =>
+  sendRequestAndGetResponse(`${BASE_PATH}/categories`, {
+    method: 'GET',
+  });

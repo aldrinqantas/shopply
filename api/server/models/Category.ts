@@ -22,12 +22,13 @@ const mongoSchema = new Schema({
   slug: {
     type: String,
     required: true,
-    unique: true,
   },
   image: {
     type: String,
   },
 });
+
+mongoSchema.index({ supplier: 1, slug: 1 }, { unique: true });
 
 export interface Category {
   _id?: any;
@@ -43,20 +44,23 @@ interface CategoryModel extends mongoose.Model<Category> {
     supplier,
     name,
     slug,
+    image,
   }: {
     supplier: string;
     name: string;
     slug: string;
+    image: string;
   }): Promise<Category>;
 }
 
 class CategoryClass extends mongoose.Model {
-  static async add({ supplier, name, slug }) {
+  static async add({ supplier, name, slug, image }) {
     try {
       const newCategory = await this.create({
         supplier,
         name,
         slug,
+        image,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
