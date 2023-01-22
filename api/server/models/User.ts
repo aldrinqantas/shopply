@@ -90,7 +90,17 @@ interface UserModel extends PassportLocalModel<UserDocument>, PaginateModel<User
 
 class UserClass extends mongoose.Model {
   public static publicFields(): string[] {
-    return ['_id', 'email', 'phoneNum', 'firstName', 'lastName', 'status', 'role', 'myRetailers'];
+    return [
+      '_id',
+      'email',
+      'phoneNum',
+      'firstName',
+      'lastName',
+      'status',
+      'role',
+      'myRetailer',
+      'mySupplier',
+    ];
   }
 
   public static async add({ email, phoneNum, firstName, lastName, role = 'staff', permissions }) {

@@ -8,7 +8,7 @@ import { AdminLayout } from '@components/layout/supplier';
 import { Card, CardHeader, CardTitle } from '@components/common/card';
 import { SearchInput } from '@components/common/search-input';
 import { DataGrid, ColumnDef } from '@components/common/data-grid';
-import { adminGetRetailersApiMethod } from '@lib/api';
+import { supplierGetRetailersApiMethod } from '@lib/api';
 import { Retailer } from '@shared/types';
 import { message } from '@lib/message';
 import { useUserContext } from '@context/UserContext';
@@ -19,7 +19,7 @@ const Page = () => {
 
   useEffect(() => {
     setIsFetching(true);
-    adminGetRetailersApiMethod()
+    supplierGetRetailersApiMethod()
       .then((result) => {
         setSites(result);
         setIsFetching(false);
