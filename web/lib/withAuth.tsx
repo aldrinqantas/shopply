@@ -58,7 +58,7 @@ export default function withAuth(
         if (user.role === 'supplier') {
           redirectUrl = '/supplier/home';
         } else {
-          redirectUrl = '/retailer/home';
+          redirectUrl = '/retailer/suppliers';
         }
       }
 

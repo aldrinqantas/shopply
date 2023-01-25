@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.use((req: any, res, next) => {
   console.log('supplier API', req.path);
-  if (req.user.role === 'supplier') {
+  if (req.user && req.user.role === 'supplier') {
     next();
     return;
   }

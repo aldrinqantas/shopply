@@ -1,6 +1,6 @@
 import sendRequestAndGetResponse from './sendRequestAndGetResponse';
 
-const BASE_PATH = '/api/v1/user';
+const BASE_PATH = '/api/v1/retailer';
 
 export const getInitialDataApiMethod = (options: any = {}) =>
   sendRequestAndGetResponse(
@@ -13,10 +13,16 @@ export const getInitialDataApiMethod = (options: any = {}) =>
     ),
   );
 
-export const getAllProductsApiMethod = () =>
-  sendRequestAndGetResponse(`${BASE_PATH}/products`, {
-    method: 'GET',
-  });
+export const getMySuppliersApiMethod = (options: any = {}) =>
+  sendRequestAndGetResponse(
+    `${BASE_PATH}/my-suppliers`,
+    Object.assign(
+      {
+        method: 'GET',
+      },
+      options,
+    ),
+  );
 
 export const getCategoryProductsApiMethod = (categorySlug) =>
   sendRequestAndGetResponse(`${BASE_PATH}/products/category/${categorySlug}`, {

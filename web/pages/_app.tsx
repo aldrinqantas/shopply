@@ -12,7 +12,6 @@ import { MessageContainer } from '@lib/message';
 
 import * as gtag from '@lib/gtag';
 import { getUserApiMethod } from '@lib/api/public';
-import { getInitialDataApiMethod } from '@lib/api/user';
 
 import '../public/static/nprogress.css';
 
@@ -83,7 +82,7 @@ MyApp.getInitialProps = async ({
 
   if (userObj) {
     try {
-      initialData = await getInitialDataApiMethod({ request: ctx.req });
+      initialData = {};
     } catch (error) {
       console.error(error);
     }

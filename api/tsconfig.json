@@ -14,8 +14,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "experimentalDecorators": true,
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./types" ],
     "lib": ["es2015", "es2016"],
   },
-  "exclude": ["production-server", "node_modules"]
+  "exclude": ["production-server", "node_modules"],
 }
