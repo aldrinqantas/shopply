@@ -8,7 +8,8 @@ import { useUserContext } from '@context/UserContext';
 import { formatAddress } from '@lib/common';
 
 const Page = () => {
-  const { activeRetailer } = useUserContext();
+  const { currentUser } = useUserContext();
+  const { myRetailer } = currentUser;
 
   return (
     <RetailerLayout pageTitle="Checkout">
@@ -19,9 +20,9 @@ const Page = () => {
               <Stack spacing={0}>
                 <Text fontWeight="semibold">Delivery for</Text>
                 <Text fontWeight="semibold" fontSize="xl">
-                  {activeRetailer.tradingName}
+                  {myRetailer.tradingName}
                 </Text>
-                <Text>{formatAddress(activeRetailer.deliveryAddress)}</Text>
+                <Text>{formatAddress(myRetailer.deliveryAddress)}</Text>
               </Stack>
             </CardBody>
           </Card>

@@ -4,9 +4,11 @@ import { FiShoppingCart } from 'react-icons/fi';
 import Router from 'next/router';
 
 import { useCartContext } from '@context/CartContext';
+import { useRetailerContext } from '@context/RetailerContext';
 
 export const CartNavbarIcon = () => {
   const { cart } = useCartContext();
+  const { currentSupplier } = useRetailerContext();
 
   const [count, setCount] = useState(0);
 
@@ -22,7 +24,7 @@ export const CartNavbarIcon = () => {
     <IconButton
       fontSize="lg"
       aria-label="Cart"
-      onClick={() => Router.push('/retailer/checkout')}
+      onClick={() => Router.push(`/retailer/${currentSupplier._id}/checkout`)}
       icon={
         <>
           <FiShoppingCart />

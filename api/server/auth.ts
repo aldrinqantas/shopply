@@ -2,6 +2,7 @@ import * as passport from 'passport';
 
 import logger from './logger';
 import User, { UserDocument } from './models/User';
+import Retailer from './models/Retailer';
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -10,11 +11,13 @@ function auth({ server }) {
 
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser((email, done) => {
-    User.findOne({ email }, User.publicFields()).exec(async (err, user) => {
-      const userObj: any = user.toObject();
+    User.findOne({ email }, User.publicFields())
+      .populate('myRetailer', Retailer.publicFields())
+      .exec(async (err, user) => {
+        const userObj: any = user.toObject();
 
-      done(err, userObj);
-    });
+        done(err, userObj);
+      });
   });
 
   server.use(passport.initialize());
