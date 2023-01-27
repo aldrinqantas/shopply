@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { createContext } from '@chakra-ui/react-utils';
 import { Category } from '@shared/types';
-import { getSupplierApiMethod } from '@lib/api';
-import { message } from '@lib/message';
 import { Supplier } from '@shared/types/Supplier';
 
 export interface CurrentSupplier extends Supplier {
@@ -22,23 +20,13 @@ export const [RetailerContextProvider, useRetailerContext, RetailerContext] =
 
 export interface RetailerProviderProps {
   children: React.ReactNode;
-  supplierId: string;
+  initialData: { supplier: CurrentSupplier };
 }
 
 export const RetailerProvider = (props: RetailerProviderProps) => {
-  const { children, supplierId } = props;
+  const { children, initialData } = props;
 
-  const [currentSupplier, setCurrentSupplier] = useState({ categories: [] });
-
-  useEffect(() => {
-    getSupplierApiMethod(supplierId)
-      .then((result) => {
-        setCurrentSupplier(result);
-      })
-      .catch((error) => {
-        message.error(error.message);
-      });
-  }, [supplierId]);
+  const [currentSupplier, setCurrentSupplier] = useState<CurrentSupplier>(initialData?.supplier);
 
   return (
     <RetailerContextProvider

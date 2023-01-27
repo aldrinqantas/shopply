@@ -11,7 +11,6 @@ import {
   Progress,
   ButtonGroup,
   IconButton,
-  Skeleton,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import React, { useMemo } from 'react';
@@ -19,105 +18,103 @@ import { FiCalendar, FiHome, FiRotateCcw, FiShoppingBag, FiSearch } from 'react-
 
 import { SidebarWrapper, NavButton } from '@components/common/sidebar';
 import { Navbar } from '@components/common/navbar';
-import { SiteSwitcher } from '@components/common/sidebar';
-import { useAppContext } from '@context/AppContext';
 import { ColorModeToggle } from '@components/common/color-mode-toggle';
 import { CartNavbarIcon } from '@components/retailer/cart/cart-navbar-icon';
 import { CartProvider } from '@context/CartContext';
-import { RetailerProvider, useRetailerContext } from '@context/RetailerContext';
+import { useRetailerContext } from '@context/RetailerContext';
 
 export interface RetailerLayoutProps {
   children: React.ReactNode;
   bodyProps?: ContainerProps;
   pageTitle: string;
-  supplierId: string;
 }
 
 export const RetailerLayout = (props: RetailerLayoutProps) => {
-  const { children, pageTitle, supplierId, bodyProps } = props;
+  const { children, pageTitle, bodyProps } = props;
   const isDesktop = useBreakpointValue({ base: false, lg: true });
 
-  const sidebar = <RetailerSidebar supplierId={supplierId} />;
+  const sidebar = <RetailerSidebar />;
   return (
-    <RetailerProvider supplierId={supplierId}>
-      <CartProvider>
-        <Head>
-          <title>{`${pageTitle}`}</title>
-        </Head>
-        <Flex
-          as="section"
-          direction={{ base: 'column', lg: 'row' }}
-          height="100vh"
-          bg="bg-canvas"
-          overflowY="auto"
-        >
-          {isDesktop && sidebar}
+    <CartProvider>
+      <Head>
+        <title>{`${pageTitle}`}</title>
+      </Head>
+      <Flex
+        as="section"
+        direction={{ base: 'column', lg: 'row' }}
+        height="100vh"
+        bg="bg-canvas"
+        overflowY="auto"
+      >
+        {isDesktop && sidebar}
 
-          <Box flex="1" overflow="auto">
-            <Navbar
-              isDesktop={isDesktop}
-              sidebar={sidebar}
-              rightElements={
-                <ButtonGroup variant="ghost" spacing="1">
-                  <IconButton fontSize="lg" icon={<FiSearch />} aria-label="Search" />
-                  <CartNavbarIcon />
-                  <ColorModeToggle />
-                </ButtonGroup>
-              }
-            />
-            <Container p={{ base: 4, md: 6 }} {...bodyProps}>
-              {children}
-            </Container>
-          </Box>
-        </Flex>
-      </CartProvider>
-    </RetailerProvider>
+        <Box flex="1" overflow="auto">
+          <Navbar
+            isDesktop={isDesktop}
+            sidebar={sidebar}
+            rightElements={
+              <ButtonGroup variant="ghost" spacing="1">
+                <IconButton fontSize="lg" icon={<FiSearch />} aria-label="Search" />
+                <CartNavbarIcon />
+                <ColorModeToggle />
+              </ButtonGroup>
+            }
+          />
+          <Container p={{ base: 4, md: 6 }} {...bodyProps}>
+            {children}
+          </Container>
+        </Box>
+      </Flex>
+    </CartProvider>
   );
 };
 
-const RetailerSidebar = ({ supplierId }) => {
+const RetailerSidebar = () => {
   const { currentSupplier } = useRetailerContext();
-  const { categories } = currentSupplier;
+  const { categories, _id: supplierId } = currentSupplier;
 
-  const Menu = !categories.length
-    ? Array(6)
-        .fill(0)
-        .map((_, index) => <Skeleton key={index} height="8" />)
-    : [
-        {
-          label: 'Home',
-          path: `/retailer/${supplierId}/home`,
-          icon: FiHome,
-        },
-        {
-          label: 'Products',
-          path: `/retailer/${supplierId}/products`,
-          icon: FiShoppingBag,
-          childMenu:
-            categories.length &&
-            categories.map((category) => ({
-              label: category.name,
-              path: `/retailer/products/${category.slug}`,
-            })),
-        },
-        {
-          label: 'Orders',
-          path: `/retailer/${supplierId}/orders`,
-          icon: FiCalendar,
-        },
-        {
-          label: 'History',
-          path: `/retailer/${supplierId}/history`,
-          icon: FiRotateCcw,
-        },
-      ].map((menuItem) => <NavButton key={menuItem.path} {...menuItem} />);
+  const menu = useMemo(
+    () => [
+      {
+        label: 'Home',
+        path: `/retailer/${supplierId}/home`,
+        icon: FiHome,
+      },
+      {
+        label: 'Products',
+        path: `/retailer/${supplierId}/products`,
+        icon: FiShoppingBag,
+        childMenu:
+          categories.length &&
+          categories.map((category) => ({
+            label: category.name,
+            path: `/retailer/${supplierId}/products/${category.slug}`,
+          })),
+      },
+      {
+        label: 'Orders',
+        path: `/retailer/${supplierId}/orders`,
+        icon: FiCalendar,
+      },
+      {
+        label: 'History',
+        path: `/retailer/${supplierId}/history`,
+        icon: FiRotateCcw,
+      },
+    ],
+    [categories],
+  );
 
   return (
     <SidebarWrapper>
       <Stack justify="space-between" spacing="1">
         <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
           {/* <Logo /> */}
-          <Stack spacing="1">{Menu}</Stack>
+          <Stack spacing="1">
+            {menu.map((menuItem) => (
+              <NavButton key={menuItem.path} {...menuItem} />
+            ))}
+          </Stack>
         </Stack>
         <Stack spacing={{ base: '5', sm: '6' }}>
           <Box bg="bg-subtle" px="4" py="5" borderRadius="lg">

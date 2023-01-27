@@ -7,11 +7,13 @@ import NProgress from 'nprogress';
 import { theme } from '@lib/theme';
 import { isMobile } from '@lib/isMobile';
 import { UserProvider } from '@context/UserContext';
-import { AppProvider } from '@context/AppContext';
+
+import { RetailerProvider } from '@context/RetailerContext';
 import { MessageContainer } from '@lib/message';
 
 import * as gtag from '@lib/gtag';
 import { getUserApiMethod } from '@lib/api/public';
+import { getSupplierApiMethod } from '@lib/api';
 
 import '../public/static/nprogress.css';
 
@@ -31,18 +33,18 @@ Router.events.on('routeChangeError', () => NProgress.done());
 type MyAppProps = {
   Component: NextPage;
   pageProps: any;
-  initialData: any;
+  supplierInitialData: any;
   user: any;
 };
 
-function MyApp({ Component, pageProps, user, initialData }: MyAppProps) {
+function MyApp({ Component, pageProps, user, supplierInitialData }: MyAppProps) {
   return (
     <ChakraProvider theme={theme}>
       <UserProvider user={user}>
-        <AppProvider initialData={initialData}>
+        <RetailerProvider initialData={supplierInitialData}>
           <Component {...pageProps} />
           <MessageContainer />
-        </AppProvider>
+        </RetailerProvider>
       </UserProvider>
     </ChakraProvider>
   );
@@ -78,20 +80,28 @@ MyApp.getInitialProps = async ({
     console.log(error);
   }
 
-  let initialData;
+  let supplierInitialData;
 
   if (userObj) {
-    try {
-      initialData = {};
-    } catch (error) {
-      console.error(error);
+    const { supplierId } = ctx.query;
+    if (supplierId) {
+      try {
+        const supplier = await getSupplierApiMethod({
+          request: ctx.req,
+          supplierId: supplierId,
+        });
+
+        supplierInitialData = { supplier };
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
   return {
     ...appProps,
     user: userObj,
-    initialData,
+    supplierInitialData,
   };
 };
 

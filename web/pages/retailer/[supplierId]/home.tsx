@@ -31,12 +31,11 @@ const menu = [
   { title: 'Coming Soon', icon: FiStar, href: '/retailer/home' },
 ];
 
-const RetailerHome = ({ supplierId }) => {
-  console.log('🚀 ~ file: home.tsx:35 ~ RetailerHome ~ supplierId', supplierId);
+const RetailerHome = () => {
   const { currentUser, activeRetailer } = useUserContext();
 
   return (
-    <RetailerLayout pageTitle="Admin" supplierId={supplierId} bodyProps={{ maxW: 'container.md' }}>
+    <RetailerLayout pageTitle="Admin" bodyProps={{ maxW: 'container.md' }}>
       <Stack spacing="4">
         <Card>
           <CardBody>
@@ -59,11 +58,6 @@ const RetailerHome = ({ supplierId }) => {
       </Stack>
     </RetailerLayout>
   );
-};
-
-RetailerHome.getInitialProps = async function getInitialProps({ query, req }) {
-  const { supplierId } = query;
-  return { supplierId };
 };
 
 export default withAuth(RetailerHome, { loginRequired: true });
