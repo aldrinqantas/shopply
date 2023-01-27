@@ -22,6 +22,8 @@ import { ColorModeToggle } from '@components/common/color-mode-toggle';
 import { CartNavbarIcon } from '@components/retailer/cart/cart-navbar-icon';
 import { CartProvider } from '@context/CartContext';
 import { useRetailerContext } from '@context/RetailerContext';
+import { UserAvatarMenu } from '@components/common/user-avatar-menu';
+import { SupplierSwitcher } from '@components/common/sidebar';
 
 export interface RetailerLayoutProps {
   children: React.ReactNode;
@@ -57,6 +59,7 @@ export const RetailerLayout = (props: RetailerLayoutProps) => {
                 <IconButton fontSize="lg" icon={<FiSearch />} aria-label="Search" />
                 <CartNavbarIcon />
                 <ColorModeToggle />
+                <UserAvatarMenu />
               </ButtonGroup>
             }
           />
@@ -110,6 +113,7 @@ const RetailerSidebar = () => {
       <Stack justify="space-between" spacing="1">
         <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
           {/* <Logo /> */}
+          <SupplierSwitcher />
           <Stack spacing="1">
             {menu.map((menuItem) => (
               <NavButton key={menuItem.path} {...menuItem} />
