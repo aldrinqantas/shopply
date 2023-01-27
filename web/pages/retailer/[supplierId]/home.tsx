@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Text, Heading, Stack, SimpleGrid, As, Icon } from '@chakra-ui/react';
 import { FiPlusCircle, FiShoppingBag, FiRotateCcw, FiStar } from 'react-icons/fi';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ import withAuth from '@lib/withAuth';
 import { RetailerLayout } from '@components/layout/retailer';
 import { Card, CardBody } from '@components/common/card';
 import { useUserContext } from '@context/UserContext';
+import { useRetailerContext } from '@context/RetailerContext';
 import { formatAddress } from '@lib/common';
 
 const HomeMenuItem = ({ title, icon, href }: { title: string; icon: As; href?: string }) => {
@@ -24,15 +25,20 @@ const HomeMenuItem = ({ title, icon, href }: { title: string; icon: As; href?: s
   );
 };
 
-const menu = [
-  { title: 'New Order', icon: FiPlusCircle, href: '/retailer/categories' },
-  { title: 'Orders', icon: FiShoppingBag, href: '/retailer/orders' },
-  { title: 'History', icon: FiRotateCcw, href: '/retailer/history' },
-  { title: 'Coming Soon', icon: FiStar, href: '/retailer/home' },
-];
-
 const RetailerHome = () => {
   const { currentUser, activeRetailer } = useUserContext();
+  const { currentSupplier } = useRetailerContext();
+  const { _id: supplierId } = currentSupplier;
+
+  const menu = useMemo(
+    () => [
+      { title: 'New Order', icon: FiPlusCircle, href: `/retailer/${supplierId}/categories` },
+      { title: 'Orders', icon: FiShoppingBag, href: `/retailer/${supplierId}/orders` },
+      { title: 'History', icon: FiRotateCcw, href: `/retailer/${supplierId}/history` },
+      { title: 'Coming Soon', icon: FiStar, href: `/retailer/${supplierId}/home` },
+    ],
+    [supplierId],
+  );
 
   return (
     <RetailerLayout pageTitle="Admin" bodyProps={{ maxW: 'container.md' }}>
