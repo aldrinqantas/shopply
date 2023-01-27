@@ -2,19 +2,19 @@ import React from 'react';
 import Head from 'next/head';
 import { Box, SimpleGrid, Center, Stack, Text, Heading, Image, Button } from '@chakra-ui/react';
 import { FiPlus } from 'react-icons/fi';
-import Router from 'next/router';
 
 import withAuth from '@lib/withAuth';
 import { getMySuppliersApiMethod } from '@lib/api/retailer';
 import { Supplier } from '@shared/types/Supplier';
 import { Card } from '@components/common/card';
+import { getAppRootUrl } from '@lib/common';
 
 const SupplierItem = ({ supplier }: { supplier: Supplier }) => {
   return (
     <Card
       isHoverable
       cursor="pointer"
-      onClick={() => Router.push(`/retailer/${supplier._id}/home`)}
+      onClick={() => (window.location.href = `${getAppRootUrl()}/retailer/${supplier._id}/home`)}
     >
       <Image
         boxSize={{ base: 'fill', md: '48' }}
