@@ -24,6 +24,11 @@ export const getMySuppliersApiMethod = (options: any = {}) =>
     ),
   );
 
+export const getSupplierApiMethod = (supplierId) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplierId}`, {
+    method: 'GET',
+  });
+
 export const getCategoryProductsApiMethod = (categorySlug) =>
   sendRequestAndGetResponse(`${BASE_PATH}/products/category/${categorySlug}`, {
     method: 'GET',

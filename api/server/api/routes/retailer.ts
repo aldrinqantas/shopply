@@ -2,6 +2,7 @@ import * as express from 'express';
 
 import Retailer from '../../models/Retailer';
 import Supplier from '../../models/Supplier';
+import Category from '../../models/Category';
 
 const router = express.Router();
 
@@ -24,6 +25,19 @@ router.get('/my-suppliers', async (req: any, res, next) => {
       .lean();
 
     res.json(retailer.suppliers);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/suppliers/:supplierId', async (req: any, res, next) => {
+  try {
+    const { supplierId } = req.params;
+
+    const supplier = await Supplier.findById(supplierId, Supplier.publicFields()).lean();
+    const categories = await Category.find({ supplier: supplierId }).lean();
+
+    res.json({ ...supplier, categories });
   } catch (err) {
     next(err);
   }

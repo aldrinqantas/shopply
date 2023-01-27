@@ -3,8 +3,17 @@ import React from 'react';
 import withAuth from '@lib/withAuth';
 import { RetailerLayout } from '@components/layout/retailer';
 
-const RetailerOrders = () => {
-  return <RetailerLayout pageTitle="Orders">Orders</RetailerLayout>;
+const Page = ({ supplierId }) => {
+  return (
+    <RetailerLayout pageTitle="Orders" supplierId={supplierId}>
+      Orders
+    </RetailerLayout>
+  );
 };
 
-export default withAuth(RetailerOrders, { loginRequired: true });
+Page.getInitialProps = async function getInitialProps({ query, req }) {
+  const { supplierId } = query;
+  return { supplierId };
+};
+
+export default withAuth(Page, { loginRequired: true });
