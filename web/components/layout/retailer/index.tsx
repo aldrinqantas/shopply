@@ -19,7 +19,7 @@ import { FiCalendar, FiHome, FiRotateCcw, FiShoppingBag, FiSearch } from 'react-
 import { SidebarWrapper, NavButton } from '@components/common/sidebar';
 import { Navbar } from '@components/common/navbar';
 import { ColorModeToggle } from '@components/common/color-mode-toggle';
-import { CartNavbarIcon } from '@components/retailer/cart/cart-navbar-icon';
+import { CartNavbarIcon } from '@components/retailer/checkout/cart-navbar-icon';
 import { CartProvider } from '@context/CartContext';
 import { useRetailerContext } from '@context/RetailerContext';
 import { UserAvatarMenu } from '@components/common/user-avatar-menu';
