@@ -9,6 +9,7 @@ import { isMobile } from '@lib/isMobile';
 import { UserProvider } from '@context/UserContext';
 
 import { RetailerProvider } from '@context/RetailerContext';
+import { CartProvider } from '@context/CartContext';
 import { MessageContainer } from '@lib/message';
 
 import * as gtag from '@lib/gtag';
@@ -42,8 +43,10 @@ function MyApp({ Component, pageProps, user, supplierInitialData }: MyAppProps) 
     <ChakraProvider theme={theme}>
       <UserProvider user={user}>
         <RetailerProvider initialData={supplierInitialData}>
-          <Component {...pageProps} />
-          <MessageContainer />
+          <CartProvider>
+            <Component {...pageProps} />
+            <MessageContainer />
+          </CartProvider>
         </RetailerProvider>
       </UserProvider>
     </ChakraProvider>

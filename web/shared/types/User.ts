@@ -1,4 +1,5 @@
 import type { Retailer } from './Retailer';
+import { Supplier } from './Supplier';
 
 export type UserStatus = 'active' | 'deactivated';
 
@@ -14,5 +15,6 @@ export interface User {
   lastName: string;
   status: UserStatus;
   role: UserRole;
-  myRetailers: Retailer[];
+  myRetailer?: Retailer;
+  mySupplier?: Supplier;
 }

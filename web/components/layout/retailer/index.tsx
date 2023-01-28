@@ -20,7 +20,6 @@ import { SidebarWrapper, NavButton } from '@components/common/sidebar';
 import { Navbar } from '@components/common/navbar';
 import { ColorModeToggle } from '@components/common/color-mode-toggle';
 import { CartNavbarIcon } from '@components/retailer/checkout/cart-navbar-icon';
-import { CartProvider } from '@context/CartContext';
 import { useRetailerContext } from '@context/RetailerContext';
 import { UserAvatarMenu } from '@components/common/user-avatar-menu';
 import { SupplierSwitcher } from '@components/common/sidebar';
@@ -37,7 +36,7 @@ export const RetailerLayout = (props: RetailerLayoutProps) => {
 
   const sidebar = <RetailerSidebar />;
   return (
-    <CartProvider>
+    <>
       <Head>
         <title>{`${pageTitle}`}</title>
       </Head>
@@ -68,7 +67,7 @@ export const RetailerLayout = (props: RetailerLayoutProps) => {
           </Container>
         </Box>
       </Flex>
-    </CartProvider>
+    </>
   );
 };
 
