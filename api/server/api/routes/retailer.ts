@@ -4,6 +4,7 @@ import Retailer from '../../models/Retailer';
 import Supplier from '../../models/Supplier';
 import Category from '../../models/Category';
 import Product from '../../models/Product';
+import Order, { ORDER_STATUS } from '../../models/Order';
 
 const router = express.Router();
 
@@ -54,6 +55,39 @@ router.get('/products/category/:categorySlug', async (req: any, res, next) => {
       .sort({ name: 1 });
 
     res.json(products);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// TODO: Validate cart
+router.post('/place-order', async (req: any, res, next) => {
+  try {
+    const { supplier, products, deliveryDate, comment } = req.body;
+
+    if (products.length === 0) {
+      res.json({ error: 'No products added' });
+      return;
+    }
+
+    const order = await Order.create({
+      createdAt: new Date(),
+      supplier,
+      retailer: req.user.myRetailer,
+      products,
+      orderBy: req.user._id,
+      status: ORDER_STATUS.PLACED,
+      deliveryDate: new Date(deliveryDate).setHours(12, 0, 0, 0),
+      comment,
+      activity: [
+        {
+          createdAt: new Date(),
+          description: `Order placed by ${req.user.firstName} ${req.user.lastName}`,
+        },
+      ],
+    });
+
+    res.json(order);
   } catch (err) {
     next(err);
   }

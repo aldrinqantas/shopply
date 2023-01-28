@@ -27,7 +27,7 @@ export const CartProvider = (props: CartProviderProps) => {
 
   const [cart, setCart] = useLocalStorage(
     `retailer-cart-${currentUser._id}-${currentSupplier?._id}`,
-    [currentSupplier],
+    [],
   );
 
   return (

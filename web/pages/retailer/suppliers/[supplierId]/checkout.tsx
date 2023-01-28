@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Stack, Button, Textarea, StackDivider, Box, Divider } from '@chakra-ui/react';
+import Router from 'next/router';
 
 import withAuth from '@lib/withAuth';
 import { RetailerLayout } from '@components/layout/retailer';
 import { Card, CardBody } from '@components/common/card';
 import { useUserContext } from '@context/UserContext';
+import { useRetailerContext } from '@context/RetailerContext';
 import { formatAddress } from '@lib/common';
 import { useCartContext } from '@context/CartContext';
 import { ReviewProductItem } from '@components/retailer/checkout/review-product-item';
+import { placeOrderApiMethod } from '@lib/api';
+import { message } from '@lib/message';
 
 const Page = () => {
   const { currentUser } = useUserContext();
+  const { currentSupplier } = useRetailerContext();
   const { myRetailer } = currentUser;
 
-  const { cart } = useCartContext();
+  const { cart, setCart } = useCartContext();
   const [products, setProducts] = useState([]);
+
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
   // To avoid React Hydration Error
   useEffect(() => {
@@ -22,6 +29,24 @@ const Page = () => {
   }, [cart]);
 
   const total = products.reduce((result, item) => result + item.sellPrice * item.quantity, 0);
+
+  const handlePlaceOrder = () => {
+    setIsPlacingOrder(true);
+    placeOrderApiMethod({ supplier: currentSupplier._id, products, deliveryDate: new Date() })
+      .then((result) => {
+        message.success('Order was placed successfully');
+        setCart(undefined);
+
+        Router.push(
+          '/retailer/suppliers/[supplierId]/orders/[orderId]',
+          `/retailer/suppliers/${currentSupplier._id}/orders/${result._id}`,
+        );
+      })
+      .catch((err) => {
+        message.error(err.message);
+        setIsPlacingOrder(false);
+      });
+  };
 
   return (
     <RetailerLayout pageTitle="Checkout">
@@ -78,7 +103,9 @@ const Page = () => {
                   <Text>Order total</Text>
                   <Text>{`$${total.toFixed(2)}`}</Text>
                 </Stack>
-                <Button variant="primary">Place order</Button>
+                <Button variant="primary" isLoading={isPlacingOrder} onClick={handlePlaceOrder}>
+                  Place order
+                </Button>
               </Stack>
             </CardBody>
           </Card>
