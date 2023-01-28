@@ -24,7 +24,7 @@ export const CartNavbarIcon = () => {
     <IconButton
       fontSize="lg"
       aria-label="Cart"
-      onClick={() => Router.push(`/retailer/${currentSupplier._id}/checkout`)}
+      onClick={() => Router.push(`/retailer/suppliers/${currentSupplier._id}/checkout`)}
       icon={
         <>
           <FiShoppingCart />

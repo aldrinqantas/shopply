@@ -14,7 +14,9 @@ const SupplierItem = ({ supplier }: { supplier: Supplier }) => {
     <Card
       isHoverable
       cursor="pointer"
-      onClick={() => (window.location.href = `${getAppRootUrl()}/retailer/${supplier._id}/home`)}
+      onClick={() =>
+        (window.location.href = `${getAppRootUrl()}/retailer/suppliers/${supplier._id}/home`)
+      }
     >
       <Image
         boxSize={{ base: 'fill', md: '48' }}

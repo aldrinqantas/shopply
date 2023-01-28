@@ -32,10 +32,14 @@ const RetailerHome = () => {
 
   const menu = useMemo(
     () => [
-      { title: 'New Order', icon: FiPlusCircle, href: `/retailer/${supplierId}/categories` },
-      { title: 'Orders', icon: FiShoppingBag, href: `/retailer/${supplierId}/orders` },
-      { title: 'History', icon: FiRotateCcw, href: `/retailer/${supplierId}/history` },
-      { title: 'Coming Soon', icon: FiStar, href: `/retailer/${supplierId}/home` },
+      {
+        title: 'New Order',
+        icon: FiPlusCircle,
+        href: `/retailer/suppliers/${supplierId}/categories`,
+      },
+      { title: 'Orders', icon: FiShoppingBag, href: `/retailer/suppliers/${supplierId}/orders` },
+      { title: 'History', icon: FiRotateCcw, href: `/retailer/suppliers/${supplierId}/history` },
+      { title: 'Coming Soon', icon: FiStar, href: `/retailer/suppliers/${supplierId}/home` },
     ],
     [supplierId],
   );

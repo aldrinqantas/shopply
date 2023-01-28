@@ -79,28 +79,28 @@ const RetailerSidebar = () => {
     () => [
       {
         label: 'Home',
-        path: `/retailer/${supplierId}/home`,
+        path: `/retailer/suppliers/${supplierId}/home`,
         icon: FiHome,
       },
       {
         label: 'Products',
-        path: `/retailer/${supplierId}/products`,
+        path: `/retailer/suppliers/${supplierId}/products`,
         icon: FiShoppingBag,
         childMenu:
           categories.length &&
           categories.map((category) => ({
             label: category.name,
-            path: `/retailer/${supplierId}/products/${category.slug}`,
+            path: `/retailer/suppliers/${supplierId}/products/${category.slug}`,
           })),
       },
       {
         label: 'Orders',
-        path: `/retailer/${supplierId}/orders`,
+        path: `/retailer/suppliers/${supplierId}/orders`,
         icon: FiCalendar,
       },
       {
         label: 'History',
-        path: `/retailer/${supplierId}/history`,
+        path: `/retailer/suppliers/${supplierId}/history`,
         icon: FiRotateCcw,
       },
     ],
