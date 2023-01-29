@@ -4,5 +4,5 @@ export interface Category {
   updatedAt?: Date;
   name: string;
   slug: string;
-  imageUrl?: string;
+  image?: string;
 }
