@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stack, Image, Center, Text, Heading } from '@chakra-ui/react';
+import Router from 'next/router';
 
 import withAuth from '@lib/withAuth';
 import { RetailerLayout } from '@components/layout/retailer';
@@ -16,9 +17,9 @@ const SupplierItem = ({ category }: { category: Category }) => {
       cursor="pointer"
       borderRadius="unset"
       onClick={() =>
-        (window.location.href = `${getAppRootUrl()}/retailer/suppliers/${
-          currentSupplier._id
-        }/products/${category.slug}`)
+        Router.push(
+          `${getAppRootUrl()}/retailer/suppliers/${currentSupplier._id}/products/${category.slug}`,
+        )
       }
     >
       <Stack direction="row">
