@@ -26,7 +26,7 @@ export const CartProvider = (props: CartProviderProps) => {
   const { currentSupplier } = useRetailerContext();
 
   const [cart, setCart] = useLocalStorage(
-    `retailer-cart-${currentUser._id}-${currentSupplier?._id}`,
+    `retailer-cart-${currentUser?._id}-${currentSupplier?._id}`,
     [],
   );
 
