@@ -5,6 +5,7 @@ import Supplier from '../../models/Supplier';
 import Category from '../../models/Category';
 import Product from '../../models/Product';
 import Order, { ORDER_STATUS } from '../../models/Order';
+import User from '../../models/User';
 
 const router = express.Router();
 
@@ -70,6 +71,21 @@ router.get('/suppliers/:supplierId/orders', async (req: any, res, next) => {
       .sort({ _id: -1 });
 
     res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/suppliers/:supplierId/orders/:orderId', async (req: any, res, next) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findById(orderId)
+      .populate('retailer', Retailer.publicFields())
+      .populate('orderBy', User.publicFields())
+      .lean();
+
+    res.json(order);
   } catch (err) {
     next(err);
   }

@@ -35,14 +35,19 @@ export const getSupplierApiMethod = (options: any = {}) =>
     ),
   );
 
-export const getCategoryProductsApiMethod = (supplier, categorySlug) =>
-  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplier}/products`, {
+export const getCategoryProductsApiMethod = (supplierId, categorySlug) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplierId}/products`, {
     method: 'GET',
     qs: { categorySlug },
   });
 
-export const getOrdersApiMethod = (supplier) =>
-  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplier}/orders`, {
+export const getOrdersApiMethod = (supplierId) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplierId}/orders`, {
+    method: 'GET',
+  });
+
+export const getOrderDetailsApiMethod = (supplierId, orderId) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplierId}/orders/${orderId}`, {
     method: 'GET',
   });
 

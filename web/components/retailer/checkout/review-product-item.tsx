@@ -2,9 +2,10 @@ import React from 'react';
 import { Stack, Text, Center, Badge, Image } from '@chakra-ui/react';
 
 import { ProductItem } from '@components/retailer/products/product-item-card';
+import { OrderProductItem } from '@shared/types';
 
 export interface ReviewProductItemProps {
-  product: ProductItem;
+  product: ProductItem | OrderProductItem;
 }
 export const ReviewProductItem = (props: ReviewProductItemProps) => {
   const { product } = props;

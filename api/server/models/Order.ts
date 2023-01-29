@@ -59,6 +59,7 @@ const mongoSchema = new Schema({
   orderBy: {
     type: ObjectId,
     required: true,
+    ref: 'User',
   },
   deliveryDate: {
     type: Date,
