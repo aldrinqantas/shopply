@@ -14,10 +14,11 @@ import {
   useBreakpointValue,
   Alert,
   AlertIcon,
+  Image,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
-import { Logo } from '@components/common/logo';
 import withAuth from '@lib/withAuth';
 import { loginApiMethod } from '@lib/api/public';
 import { getAppRootUrl } from '@lib/common';
@@ -50,7 +51,14 @@ const Login = () => {
     <AuthLayout pageTitle="Login">
       <Stack spacing="8">
         <Stack spacing="6">
-          <Logo color="brand.500" />
+          <Image
+            maxH="20"
+            src={useColorModeValue(
+              '/static/images/shopply_logo_dark.svg',
+              '/static/images/shopply_logo_light.svg',
+            )}
+            alt="Shopply Logo"
+          />
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading size={useBreakpointValue({ base: 'md', md: 'lg' })}>
               Log in to your account

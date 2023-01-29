@@ -11,10 +11,7 @@ export default function Document() {
         <meta name="google" content="notranslate" />
         <meta name="theme-color" content="#303030" />
 
-        <link
-          rel="shortcut icon"
-          href="https://storage.googleapis.com/async-await/async-favicon32.png"
-        />
+        <link rel="shortcut icon" href="/static/images/favicon32.png" />
 
         <script
           async

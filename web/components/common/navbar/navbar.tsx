@@ -7,6 +7,7 @@ import {
   useColorModeValue,
   useDisclosure,
   HStack,
+  Image,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -27,6 +28,14 @@ export const Navbar = (props: NavbarProps) => {
           {!isDesktop && (
             <ToggleSidebarButton isOpen={isOpen} aria-label="Open Menu" onClick={onToggle} />
           )}
+          <Image
+            h="10"
+            src={useColorModeValue(
+              '/static/images/shopply_logo_dark.svg',
+              '/static/images/shopply_logo_light.svg',
+            )}
+            alt="Shopply Logo"
+          />
         </HStack>
         {rightElements}
         <Drawer

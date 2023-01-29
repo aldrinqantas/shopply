@@ -8,7 +8,6 @@ import { RetailerLayout } from '@components/layout/retailer';
 import { Card, CardBody } from '@components/common/card';
 import { useUserContext } from '@context/UserContext';
 import { useRetailerContext } from '@context/RetailerContext';
-import { formatAddress } from '@lib/common';
 
 const HomeMenuItem = ({ title, icon, href }: { title: string; icon: As; href?: string }) => {
   return (
@@ -26,7 +25,7 @@ const HomeMenuItem = ({ title, icon, href }: { title: string; icon: As; href?: s
 };
 
 const RetailerHome = () => {
-  const { currentUser, activeRetailer } = useUserContext();
+  const { currentUser } = useUserContext();
   const { currentSupplier } = useRetailerContext();
   const { _id: supplierId } = currentSupplier;
 
@@ -38,7 +37,11 @@ const RetailerHome = () => {
         href: `/retailer/suppliers/${supplierId}/categories`,
       },
       { title: 'Orders', icon: FiShoppingBag, href: `/retailer/suppliers/${supplierId}/orders` },
-      { title: 'History', icon: FiRotateCcw, href: `/retailer/suppliers/${supplierId}/history` },
+      {
+        title: 'History',
+        icon: FiRotateCcw,
+        href: `/retailer/suppliers/${supplierId}/history/orders`,
+      },
       { title: 'Coming Soon', icon: FiStar, href: `/retailer/suppliers/${supplierId}/home` },
     ],
     [supplierId],
@@ -52,10 +55,10 @@ const RetailerHome = () => {
             <Stack spacing="3">
               <Heading size="md">{`Welcome back ${currentUser.firstName}!`}</Heading>
               <Stack spacing="0.5">
-                <Text fontWeight="medium" fontSize="lg">
-                  {activeRetailer?.tradingName}
+                <Text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.
                 </Text>
-                <Text>{formatAddress(activeRetailer?.deliveryAddress)}</Text>
               </Stack>
             </Stack>
           </CardBody>

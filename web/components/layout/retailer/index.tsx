@@ -11,6 +11,8 @@ import {
   Progress,
   ButtonGroup,
   IconButton,
+  Image,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import React, { useMemo } from 'react';
@@ -137,7 +139,6 @@ const RetailerSidebar = () => {
     <SidebarWrapper>
       <Stack justify="space-between" spacing="1">
         <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
-          {/* <Logo /> */}
           <SupplierSwitcher />
           <Stack spacing="1">
             {menu.map((menuItem) => (
