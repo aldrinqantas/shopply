@@ -40,6 +40,7 @@ const Page = () => {
       supplier: currentSupplier._id,
       products,
       deliveryDate: deliveryDate,
+      comment,
     })
       .then((result) => {
         message.success('Order was placed successfully');

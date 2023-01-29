@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { AvatarGroup, Avatar, Tag } from '@chakra-ui/react';
+import { AvatarGroup, Avatar, Tag, Text } from '@chakra-ui/react';
 import Router from 'next/router';
 import _get from 'lodash/get';
 import { format } from 'date-fns';
@@ -62,6 +62,7 @@ const Page = () => {
       {
         id: 'comment',
         header: 'Comment',
+        cell: (cellProps) => <Text maxW={40}>{cellProps.getValue<string>()}</Text>,
       },
       {
         id: 'deliveryDate',
