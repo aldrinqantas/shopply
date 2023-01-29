@@ -23,18 +23,43 @@ import { CartNavbarIcon } from '@components/retailer/checkout/cart-navbar-icon';
 import { useRetailerContext } from '@context/RetailerContext';
 import { UserAvatarMenu } from '@components/common/user-avatar-menu';
 import { SupplierSwitcher } from '@components/common/sidebar';
+import { NavTabItemData, NestedNavTab } from '@components/common/nested-nav-tab';
 
 export interface RetailerLayoutProps {
   children: React.ReactNode;
   bodyProps?: ContainerProps;
   pageTitle: string;
+  nestedMenu?: 'history' | 'lorem';
 }
 
 export const RetailerLayout = (props: RetailerLayoutProps) => {
-  const { children, pageTitle, bodyProps } = props;
+  const { children, pageTitle, bodyProps, nestedMenu } = props;
   const isDesktop = useBreakpointValue({ base: false, lg: true });
 
+  const { currentSupplier } = useRetailerContext();
+
   const sidebar = <RetailerSidebar />;
+
+  const nestedMenuData: { [key: string]: NavTabItemData[] } = useMemo(
+    () => ({
+      history: [
+        {
+          href: `/retailer/suppliers/${currentSupplier._id}/history/orders`,
+          label: 'Orders',
+        },
+        {
+          href: `/retailer/suppliers/${currentSupplier._id}/history/credit-notes`,
+          label: 'Credit Notes',
+        },
+        {
+          href: `/retailer/suppliers/${currentSupplier._id}/history/disputes`,
+          label: 'Disputes',
+        },
+      ],
+    }),
+    [currentSupplier],
+  );
+
   return (
     <>
       <Head>
@@ -62,6 +87,7 @@ export const RetailerLayout = (props: RetailerLayoutProps) => {
               </ButtonGroup>
             }
           />
+          {nestedMenu && <NestedNavTab menuData={nestedMenuData[nestedMenu]} />}
           <Container p={{ base: 4, md: 6 }} {...bodyProps}>
             {children}
           </Container>
@@ -100,7 +126,7 @@ const RetailerSidebar = () => {
       },
       {
         label: 'History',
-        path: `/retailer/suppliers/${supplierId}/history`,
+        path: `/retailer/suppliers/${supplierId}/history/orders`,
         icon: FiRotateCcw,
       },
     ],
