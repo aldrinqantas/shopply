@@ -17,3 +17,4 @@ export { default as Tabs } from './tabs';
 export { default as Textarea } from './textarea';
 export { default as Loader } from './loader';
 export { default as Card } from './card';
+export { default as CalendarDay } from './calendar-day';

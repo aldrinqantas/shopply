@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Stack, Button, Textarea, StackDivider, Box, Divider } from '@chakra-ui/react';
+import { Text, Stack, Button, Textarea, StackDivider, Box, Divider, Input } from '@chakra-ui/react';
 import Router from 'next/router';
 
 import withAuth from '@lib/withAuth';
@@ -12,6 +12,8 @@ import { useCartContext } from '@context/CartContext';
 import { ReviewProductItem } from '@components/retailer/checkout/review-product-item';
 import { placeOrderApiMethod } from '@lib/api';
 import { message } from '@lib/message';
+import { DateInput } from '@components/common/date-input';
+import { CalendarDate } from '@uselessdev/datepicker';
 
 const Page = () => {
   const { currentUser } = useUserContext();
@@ -21,6 +23,8 @@ const Page = () => {
   const { cart, setCart } = useCartContext();
   const [products, setProducts] = useState([]);
 
+  const [deliveryDate, setDeliveryDate] = useState<CalendarDate>();
+  const [comment, setComment] = useState<string>('');
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
   // To avoid React Hydration Error
@@ -32,7 +36,11 @@ const Page = () => {
 
   const handlePlaceOrder = () => {
     setIsPlacingOrder(true);
-    placeOrderApiMethod({ supplier: currentSupplier._id, products, deliveryDate: new Date() })
+    placeOrderApiMethod({
+      supplier: currentSupplier._id,
+      products,
+      deliveryDate: deliveryDate,
+    })
       .then((result) => {
         message.success('Order was placed successfully');
         setCart(undefined);
@@ -54,18 +62,35 @@ const Page = () => {
         <Stack spacing="4" flex={1}>
           <Card>
             <CardBody>
-              <Stack spacing={0}>
-                <Text fontWeight="semibold">Delivery for</Text>
-                <Text fontWeight="semibold" fontSize="xl">
-                  {myRetailer.tradingName}
-                </Text>
-                <Text>{formatAddress(myRetailer.deliveryAddress)}</Text>
+              <Stack spacing="4">
+                <Box>
+                  <Stack>
+                    <Text fontWeight="semibold">Delivery for</Text>
+                    <Box>
+                      <Text fontWeight="semibold">{myRetailer.tradingName}</Text>
+                      <Text>{formatAddress(myRetailer.deliveryAddress)}</Text>
+                    </Box>
+                  </Stack>
+                </Box>
+                <Divider />
+                <Box>
+                  <Stack>
+                    <Text fontWeight="semibold">Delivery day</Text>
+                    <Box maxWidth="48">
+                      <DateInput
+                        date={deliveryDate}
+                        onDateChange={setDeliveryDate}
+                        disablePastDates
+                      />
+                    </Box>
+                  </Stack>
+                </Box>
               </Stack>
             </CardBody>
           </Card>
           <Card>
             <CardBody>
-              <Stack>
+              <Stack spacing="4">
                 <Text fontWeight="semibold">Review your order</Text>
                 <Stack direction="column" divider={<StackDivider />}>
                   {products.map((item) => (
@@ -77,9 +102,13 @@ const Page = () => {
           </Card>
           <Card>
             <CardBody>
-              <Stack>
+              <Stack spacing="4">
                 <Text fontWeight="semibold">Comments, notes</Text>
-                <Textarea placeholder="Add comment or note" />
+                <Textarea
+                  placeholder="Add comment or note"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
               </Stack>
             </CardBody>
           </Card>
@@ -103,7 +132,12 @@ const Page = () => {
                   <Text>Order total</Text>
                   <Text>{`$${total.toFixed(2)}`}</Text>
                 </Stack>
-                <Button variant="primary" isLoading={isPlacingOrder} onClick={handlePlaceOrder}>
+                <Button
+                  variant="primary"
+                  disabled={!deliveryDate || products.length === 0}
+                  isLoading={isPlacingOrder}
+                  onClick={handlePlaceOrder}
+                >
                   Place order
                 </Button>
               </Stack>

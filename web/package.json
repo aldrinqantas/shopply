@@ -18,6 +18,8 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@tanstack/react-table": "^8.5.11",
+    "@uselessdev/datepicker": "^2.7.0",
+    "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "express": "^4.17.1",
     "filepond": "^4.30.4",

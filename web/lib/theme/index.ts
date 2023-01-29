@@ -1,4 +1,5 @@
 import { extendTheme, theme as baseTheme, ThemeConfig } from '@chakra-ui/react';
+import { CalendarDefaultTheme } from '@uselessdev/datepicker';
 import * as components from './components';
 import * as foundations from './foundations';
 
@@ -7,10 +8,12 @@ const config: ThemeConfig = {
   useSystemColorMode: true,
 };
 
-export const theme: Record<string, any> = extendTheme({
+export const theme: Record<string, any> = extendTheme(CalendarDefaultTheme, {
   config,
   ...foundations,
-  components: { ...components },
+  components: {
+    ...components,
+  },
   colors: { ...baseTheme.colors, brand: baseTheme.colors.blue },
   space: {
     '4.5': '1.125rem',
