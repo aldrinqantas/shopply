@@ -6,14 +6,16 @@ import { RetailerLayout } from '@components/layout/retailer';
 import { ProductItemCard } from '@components/retailer/products/product-item-card';
 import { ProductCardSkeleton } from '@components/retailer/products/product-card-skeleton';
 import { getCategoryProductsApiMethod } from '@lib/api';
+import { useRetailerContext } from '@context/RetailerContext';
 
 const Page = ({ categorySlug }: { categorySlug: string }) => {
   const [products, setProducts] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const { currentSupplier } = useRetailerContext();
 
   useEffect(() => {
     setIsFetching(true);
-    getCategoryProductsApiMethod(categorySlug)
+    getCategoryProductsApiMethod(currentSupplier._id, categorySlug)
       .then((data) => {
         setProducts(data);
       })

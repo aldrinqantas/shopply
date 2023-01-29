@@ -35,9 +35,10 @@ export const getSupplierApiMethod = (options: any = {}) =>
     ),
   );
 
-export const getCategoryProductsApiMethod = (categorySlug) =>
-  sendRequestAndGetResponse(`${BASE_PATH}/products/category/${categorySlug}`, {
+export const getCategoryProductsApiMethod = (supplier, categorySlug) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplier}/products`, {
     method: 'GET',
+    qs: { categorySlug },
   });
 
 export const placeOrderApiMethod = (body) =>

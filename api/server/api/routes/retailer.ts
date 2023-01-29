@@ -45,11 +45,12 @@ router.get('/suppliers/:supplierId', async (req: any, res, next) => {
   }
 });
 
-router.get('/products/category/:categorySlug', async (req: any, res, next) => {
+router.get('/suppliers/:supplierId/products', async (req: any, res, next) => {
   try {
-    const { categorySlug } = req.params;
+    const { supplierId } = req.params;
+    const { categorySlug } = req.query;
 
-    const category = await Category.findOne({ slug: categorySlug });
+    const category = await Category.findOne({ supplier: supplierId, slug: categorySlug });
     const products = await Product.find({ categories: category._id })
       .select(Product.publicFields())
       .sort({ name: 1 });
