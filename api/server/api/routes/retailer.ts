@@ -61,6 +61,20 @@ router.get('/suppliers/:supplierId/products', async (req: any, res, next) => {
   }
 });
 
+router.get('/suppliers/:supplierId/orders', async (req: any, res, next) => {
+  try {
+    const { supplierId } = req.params;
+
+    const orders = await Order.find({ supplier: supplierId, retailer: req.user.myRetailer })
+      .populate('supplier', Supplier.publicFields())
+      .sort({ _id: -1 });
+
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // TODO: Validate cart
 router.post('/place-order', async (req: any, res, next) => {
   try {

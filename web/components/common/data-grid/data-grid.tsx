@@ -258,6 +258,7 @@ export const DataGrid = React.forwardRef(
                 <Tr
                   key={row.id}
                   onClick={onClick}
+                  cursor={onClick ? 'pointer' : undefined}
                   data-selected={dataAttr(row.getIsSelected())}
                   data-hover={dataAttr(isHoverable)}
                 >

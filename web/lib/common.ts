@@ -1,3 +1,5 @@
+import { ORDER_STATUS } from '@shared/types';
+
 const dev = process.env.NODE_ENV !== 'production';
 
 export const getAppRootUrl = () =>
@@ -12,4 +14,19 @@ export const formatAddress = (addressObj) => {
   const { line1, line2, suburb, state, postcode } = addressObj;
 
   return `${line1}${line2 ? ` ${line2}` : ''}, ${suburb}, ${state} ${postcode}`;
+};
+
+export const getOrderStatusTagColor = (status) => {
+  switch (status) {
+    case ORDER_STATUS.PLACED:
+      return 'gray';
+    case ORDER_STATUS.CONFIRMED:
+      return 'blue';
+    case ORDER_STATUS.CANCELLED:
+      return 'red';
+    case ORDER_STATUS.COMPLETED:
+      return 'green';
+    default:
+      return 'gray';
+  }
 };

@@ -41,6 +41,11 @@ export const getCategoryProductsApiMethod = (supplier, categorySlug) =>
     qs: { categorySlug },
   });
 
+export const getOrdersApiMethod = (supplier) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/suppliers/${supplier}/orders`, {
+    method: 'GET',
+  });
+
 export const placeOrderApiMethod = (body) =>
   sendRequestAndGetResponse(`${BASE_PATH}/place-order`, {
     body: JSON.stringify(body),
