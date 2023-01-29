@@ -13,6 +13,7 @@ export const RETAILERS = [
       line1: '1 Good Street',
       line2: '',
       suburb: 'A Suburb',
+      postcode: 2000,
       state: 'NSW',
     },
     emailAddress: 'admin_retailer_1@gmail.com',

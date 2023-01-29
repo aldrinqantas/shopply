@@ -63,6 +63,7 @@ export interface Supplier {
   phoneNumber: string;
   abn: string;
   status: string;
+  logo: string;
 }
 
 export interface SupplierDocument extends PassportLocalDocument, Supplier {}
@@ -82,6 +83,7 @@ class SupplierClass extends mongoose.Model {
       'deliveryAddress',
       'emailAddress',
       'phoneNumber',
+      'logo',
     ];
   }
 }

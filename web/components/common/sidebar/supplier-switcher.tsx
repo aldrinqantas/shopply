@@ -48,7 +48,14 @@ export const SwitcherButton = (props: SwitcherButtonProps) => {
       _focus={{ shadow: 'outline' }}
     >
       <HStack flex="1" spacing="3">
-        <Avatar w="8" h="8" size="sm" rounded="md" name={supplier.tradingName} />
+        <Avatar
+          w="8"
+          h="8"
+          size="sm"
+          borderRadius="md"
+          src={supplier.logo}
+          name={supplier.tradingName}
+        />
         <Box textAlign="start">
           <Box noOfLines={1} fontWeight="semibold">
             {supplier.tradingName}

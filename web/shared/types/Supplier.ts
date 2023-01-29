@@ -15,4 +15,5 @@ export interface Supplier {
   phoneNumber: string;
   abn: string;
   status: string;
+  logo: string;
 }

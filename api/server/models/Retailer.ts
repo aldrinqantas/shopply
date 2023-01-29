@@ -69,6 +69,7 @@ export interface Retailer {
   phoneNumber: string;
   abn: string;
   status: string;
+  logo: string;
 }
 
 export interface RetailerDocument extends PassportLocalDocument, Retailer {}
@@ -88,6 +89,7 @@ class RetailerClass extends mongoose.Model {
       'deliveryAddress',
       'emailAddress',
       'phoneNumber',
+      'logo',
     ];
   }
 }

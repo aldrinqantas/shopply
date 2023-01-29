@@ -117,7 +117,7 @@ async function insertRetailers() {
       const newRetailer = await Retailer.create({
         tradingName: retailer.tradingName,
         corporateEntity: retailer.corporateEntity,
-        address: retailer.deliveryAddress,
+        deliveryAddress: retailer.deliveryAddress,
         emailAddress: retailer.emailAddress,
         phoneNumber: retailer.phoneNumber,
         abn: retailer.abn,

@@ -15,4 +15,5 @@ export interface Retailer {
   phoneNumber: string;
   abn: string;
   status: string;
+  logo: string;
 }
