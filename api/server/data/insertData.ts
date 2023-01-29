@@ -73,6 +73,7 @@ async function insertSuppliers() {
         phoneNumber: supplier.phoneNumber,
         abn: supplier.abn,
         status: supplier.status,
+        logo: supplier.logo,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -116,11 +117,12 @@ async function insertRetailers() {
       const newRetailer = await Retailer.create({
         tradingName: retailer.tradingName,
         corporateEntity: retailer.corporateEntity,
-        address: retailer.address,
+        address: retailer.deliveryAddress,
         emailAddress: retailer.emailAddress,
         phoneNumber: retailer.phoneNumber,
         abn: retailer.abn,
         status: retailer.status,
+        logo: retailer.logo,
         suppliers: suppliers.map((supplier) => supplier._id),
         createdAt: new Date(),
         updatedAt: new Date(),

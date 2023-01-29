@@ -39,6 +39,9 @@ const mongoSchema = new Schema({
     type: String,
     default: 'Active',
   },
+  logo: {
+    type: String,
+  },
 });
 
 mongoSchema.plugin(mongoosePaginate);

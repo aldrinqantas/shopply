@@ -14,8 +14,8 @@ export const SUPPLIER_USER_2 = {
 
 export const SUPPLIERS = [
   {
-    tradingName: 'Supplier One Store',
-    corporateEntity: 'Supplier One Pty Ltd',
+    tradingName: 'Fashion Supply Co',
+    corporateEntity: 'Fashion Supply Co Pty Ltd',
     address: {
       line1: '1 Good Street',
       line2: '',
@@ -41,10 +41,11 @@ export const SUPPLIERS = [
         image: 'https://api.lorem.space/image/shoes?w=640&h=480&r=9199',
       },
     ],
+    logo: 'https://api.lorem.space/image/fashion?w=640&h=480&r=3912',
   },
   {
-    tradingName: 'Supplier Two Store',
-    corporateEntity: 'Supplier Two Pty Ltd',
+    tradingName: 'Tech Supply Co',
+    corporateEntity: 'Tech Supply Co Pty Ltd',
     address: {
       line1: '1 Nice Street',
       line2: '',
@@ -70,5 +71,6 @@ export const SUPPLIERS = [
         image: 'https://api.lorem.space/image/furniture?w=640&h=480&r=4602',
       },
     ],
+    logo: 'https://api.lorem.space/image/watch?w=640&h=480&r=2738',
   },
 ];

@@ -7,9 +7,9 @@ export const Retailer_USER_1 = {
 
 export const RETAILERS = [
   {
-    tradingName: 'Retailer One Store',
-    corporateEntity: 'Retailer One Pty Ltd',
-    address: {
+    tradingName: 'Nice Things Store',
+    corporateEntity: 'Nice Things Pty Ltd',
+    deliveryAddress: {
       line1: '1 Good Street',
       line2: '',
       suburb: 'A Suburb',
@@ -19,6 +19,7 @@ export const RETAILERS = [
     phoneNumber: '0412345678',
     abn: '12345678901',
     status: 'Active',
+    logo: 'https://api.lorem.space/image/house?w=640&h=480&r=2738',
     user: Retailer_USER_1,
   },
 ];

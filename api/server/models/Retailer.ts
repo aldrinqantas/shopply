@@ -40,6 +40,9 @@ const mongoSchema = new Schema({
     type: String,
     default: 'Active',
   },
+  logo: {
+    type: String,
+  },
   suppliers: {
     type: [ObjectId],
     ref: 'Supplier',
