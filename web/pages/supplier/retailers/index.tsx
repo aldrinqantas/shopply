@@ -11,7 +11,6 @@ import { DataGrid, ColumnDef } from '@components/common/data-grid';
 import { supplierGetRetailersApiMethod } from '@lib/api';
 import { Retailer } from '@shared/types';
 import { message } from '@lib/message';
-import { useUserContext } from '@context/UserContext';
 
 const Page = () => {
   const [sites, setSites] = useState<Retailer[]>([]);
@@ -29,8 +28,6 @@ const Page = () => {
         setIsFetching(false);
       });
   }, []);
-
-  const { setActiveRetailerId } = useUserContext();
 
   const columns: ColumnDef<Retailer>[] = useMemo(
     () => [
@@ -57,15 +54,7 @@ const Page = () => {
         cell: (cellProps) => (
           <HStack>
             <IconButton aria-label="Update retailer" size="xs" icon={<FiEdit />} />
-            <IconButton
-              aria-label="View retailer"
-              size="xs"
-              icon={<FiEye />}
-              onClick={() => {
-                setActiveRetailerId(cellProps.row.original._id);
-                Router.push(`/supplier/retailers/${cellProps.row.original._id}`);
-              }}
-            />
+            <IconButton aria-label="View retailer" size="xs" icon={<FiEye />} />
           </HStack>
         ),
       },
