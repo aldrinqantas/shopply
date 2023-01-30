@@ -15,7 +15,6 @@ const SupplierItem = ({ category }: { category: Category }) => {
     <Card
       isHoverable
       cursor="pointer"
-      borderRadius="unset"
       onClick={() =>
         Router.push(
           `${getAppRootUrl()}/retailer/suppliers/${currentSupplier._id}/products/${category.slug}`,
@@ -24,6 +23,7 @@ const SupplierItem = ({ category }: { category: Category }) => {
     >
       <Stack direction="row">
         <Image
+          borderLeftRadius="md"
           boxSize="20"
           objectFit="cover"
           src={category.image}
@@ -33,7 +33,7 @@ const SupplierItem = ({ category }: { category: Category }) => {
         <Center p="4">
           <Stack spacing="0">
             <Text fontWeight="semibold">{category.name}</Text>
-            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit</Text>
+            <Text>Lorem ipsum dolor sit amet</Text>
           </Stack>
         </Center>
       </Stack>

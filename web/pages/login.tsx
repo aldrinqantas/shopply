@@ -121,9 +121,9 @@ const Login = () => {
           <AlertIcon />
           <Stack spacing={0} fontSize="sm">
             <Text>Account: Email | Password</Text>
+            <Text>Retailer 1: admin_retailer_1@gmail.com | ShopplyAdmin</Text>
             <Text>Supplier 1: admin_supplier_1@gmail.com | ShopplyAdmin</Text>
             <Text>Supplier 2: admin_supplier_2@gmail.com | ShopplyAdmin</Text>
-            <Text>Retailer 1: admin_retailer_1@gmail.com | ShopplyAdmin</Text>
           </Stack>
         </Alert>
       </Stack>
