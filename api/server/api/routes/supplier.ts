@@ -3,6 +3,7 @@ import * as express from 'express';
 import Retailer from '../../models/Retailer';
 import Product from '../../models/Product';
 import Category from '../../models/Category';
+import Order from '../../models/Order';
 
 const router = express.Router();
 
@@ -61,6 +62,27 @@ router.get('/categories', async (req: any, res, next) => {
     const products = await Category.find({ supplier: user.mySupplier }).sort({ name: 1 }).lean();
 
     res.json(products);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/orders', async (req: any, res, next) => {
+  try {
+    const { deliveryStart, deliveryEnd } = req.query;
+
+    const query: any = {};
+
+    if (deliveryStart && deliveryEnd) {
+      query.deliveryDate = { $gte: deliveryStart, $lt: deliveryEnd };
+    }
+
+    const orders = await Order.find(query)
+      .populate('retailer', Retailer.publicFields())
+      .sort({ _id: -1 })
+      .lean();
+
+    res.json(orders);
   } catch (err) {
     next(err);
   }

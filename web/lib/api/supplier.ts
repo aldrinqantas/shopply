@@ -22,3 +22,9 @@ export const supplierGetCategoriesApiMethod = () =>
   sendRequestAndGetResponse(`${BASE_PATH}/categories`, {
     method: 'GET',
   });
+
+export const supplierGetOrdersApiMethod = (queryString) =>
+  sendRequestAndGetResponse(`${BASE_PATH}/orders`, {
+    method: 'GET',
+    qs: queryString,
+  });
