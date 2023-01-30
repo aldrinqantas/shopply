@@ -2,6 +2,8 @@
 
 An open-source ordering platform designed to benefit both the wholesale supplier and the venues they serve. The ultimate fullstack boilerplate which gives you maximum flexibility and speed. 
 
+![Shopply screenshot](https://raw.githubusercontent.com/qdzungpham/shopply/main/.github/shopply-screenshot.png)
+
 Try it out at [shopply.qdzungpham.com](https://shopply.qdzungpham.com/)
 
 ## Stack
