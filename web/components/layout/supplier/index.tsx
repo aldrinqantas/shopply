@@ -7,6 +7,9 @@ import {
   Stack,
   ButtonGroup,
   IconButton,
+  Avatar,
+  Text,
+  Center,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import React from 'react';
@@ -14,10 +17,10 @@ import { FiLayers, FiHome, FiUsers, FiGrid, FiUserCheck, FiSearch } from 'react-
 
 import { SidebarWrapper, NavButton } from '@components/common/sidebar';
 import { Navbar } from '@components/common/navbar';
-import { Logo } from '@components/common/logo';
 import { NavTabItemData, NestedNavTab } from '@components/common/nested-nav-tab';
 import { ColorModeToggle } from '@components/common/color-mode-toggle';
 import { UserAvatarMenu } from '@components/common/user-avatar-menu';
+import { useUserContext } from '@context/UserContext';
 
 const nestedMenuData: { [key: string]: NavTabItemData[] } = {
   products: [
@@ -108,11 +111,27 @@ const menu = [
 ];
 
 const SupplierSidebar = () => {
+  const { currentUser } = useUserContext();
+  const supplier = currentUser?.mySupplier;
   return (
     <SidebarWrapper>
       <Stack justify="space-between" spacing="1" w="full">
         <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
-          <Logo />
+          <Stack direction="row">
+            <Avatar
+              w="10"
+              h="10"
+              size="sm"
+              borderRadius="md"
+              src={supplier?.logo}
+              name={supplier?.tradingName}
+            />
+            <Center>
+              <Text fontSize="xl" fontWeight="semibold">
+                {supplier?.tradingName}
+              </Text>
+            </Center>
+          </Stack>
           <Stack spacing="1">
             {menu.map((menuItem) => (
               <NavButton key={menuItem.path} {...menuItem} />
